@@ -1,0 +1,86 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+:root {
+	--purple: rgb(101,48,155);
+	--white: rgb(255, 255, 255);
+	--gold: rgb(204, 265, 24);
+}
+
+header {
+	margin-bottom: 10px;
+	background-color: var(--purple);
+	height: 50px;
+}
+
+body, html{
+	height: 100%;
+}
+
+p {
+	margin-top: 20px;
+}
+
+h1 {
+	font-family: "Optima";
+	color: var(--purple);
+}
+
+ul {
+	padding: 0;
+	margin: 0;
+	list-style-type: none;
+}
+
+li {
+	float: left;
+}
+
+a {
+	float: left;
+	width: 6em;
+	text-decoration: none;
+	padding: 0.2em 0.6em;
+}
+
+a:hover {
+	color:var(--gold);
+}
+
+.topLink {
+	position: absolute;
+	color: white;
+	font-size: 10px;
+	font-family: "Optima", sans-serif;
+	margin-top: 10px;
+}
+
+#home {
+	margin-left: 10px;
+} 
+
+#assignment1 {
+	margin-left: 100px;
+}
+
+#assignment2 {
+	margin-left: 190px;
+}
+
+#assignment3 {
+	margin-left: 280px;
+}
+
+#assignment4 {
+	margin-left: 370px;
+}
+
+#assignment5 {
+	margin-left: 460px;
+}
+
+#assignment6 {
+	margin-left: 550px;
+}

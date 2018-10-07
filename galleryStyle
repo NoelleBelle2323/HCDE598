@@ -1,0 +1,5 @@
+header{
+	margin-bottom: 10px;
+	background-color: var(--ltBlue);
+	height: 75px;
+}
