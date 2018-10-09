@@ -10,139 +10,147 @@
         <pre>
         	<code>
 				function setup() {
-				  createCanvas(400, 400);
-				  background('darkblue');
 
-				  //forewater
-				  noStroke();
-				  fill('blue');
-				  ellipse(0, 310, 100, 100);
-				  ellipse(100, 310, 100, 100);
-				  ellipse(200, 310, 100, 100);
-				  ellipse(300, 310, 100, 100);
-				  ellipse(400, 310, 100, 100);
-				  rect(0, 260, 400, 50);
+					createCanvas(500, 500);
+					background('yellow');
 
-				  //midwater
-				  noStroke();
-				  fill(200, 255, 255);
-				  ellipse(0, 265, 75, 75);
-				  ellipse(75, 265, 75, 75);
-				  ellipse(150, 265, 75, 75);
-				  ellipse(225, 265, 75, 75);
-				  ellipse(300, 265, 75, 75);
-				  ellipse(375, 265, 75, 75);
-				  ellipse(450, 265, 75, 75);
-				  rect(0, 222, 405, 45);
+					//Ancestor-self portrait, jcarr88@uw.edu
 
-				  //backwater
-				  noStroke();
-				  fill('lightblue');
-				  ellipse(0, 230, 50, 50);
-				  ellipse(50, 230, 50, 50);
-				  ellipse(100, 230, 50, 50);
-				  ellipse(150, 230, 50, 50);
-				  ellipse(200, 230, 50, 50);
-				  ellipse(250, 230, 50, 50);
-				  ellipse(300, 230, 50, 50);
-				  ellipse(350, 230, 50, 50);
-				  ellipse(400, 230, 50, 50);
-				  rect(0, 0, 400, 230);
+					// Skull shape
+					stroke('white');
+					strokeWeight(0);
+					fill('white');
+					ellipse(250, 200, 300, 400);
+					rect(190, 350, 135, 120);
 
-				  //sky
-				  fill(210, 150, 210);
-				  rect(0, 0, 400, 220);
+					//left eye decor
+					fill('green');
+					ellipse(183, 95, 40, 40);
+					ellipse(155, 120, 40, 40);
+					ellipse(150, 160, 40, 40);
+					ellipse(166, 196, 40, 40);
 
-				  //sun
-				  noStroke();
-				  fill(200, 100, 0);
-				  ellipse(400, -130, 700, 700);
-				  fill(200, 120, 0);
-				  ellipse(400, -130, 650, 650);
-				  fill(200, 140, 0);
-				  ellipse(400, -130, 600, 600);
-				  fill(200, 160, 0);
-				  ellipse(400, -130, 550, 550);
-				  fill(200, 180, 0);
-				  ellipse(400, -130, 500, 500);
-				  fill(200, 200, 0);
-				  ellipse(400, -130, 450, 450);
-				  fill(200, 220, 0);
-				  ellipse(400, -130, 400, 400);
-				  fill(200, 240, 0);
-				  ellipse(400, -130, 350, 350);
-				  fill(200, 260, 0);
-				  ellipse(400, -130, 300, 300);
+					ellipse(215, 120, 40, 40);
+					ellipse(218, 159, 40, 40);
+					ellipse(205, 195, 40, 40);
 
-				  //big mountain-snowcap
-				  noStroke();
-				  fill(210, 220, 210);
-				  quad(-50, 220, 120, 50, 200, 75, 463, 220)
+					//right eye decor
+					fill('green');
+					ellipse(317, 95, 40, 40);
+					ellipse(290, 120, 40, 40);
+					ellipse(285, 160, 40, 40);
+					ellipse(302, 196, 40, 40);
 
-				  //midmountains
-				  noStroke();
-				  fill(40, 40, 80);
-				  triangle(190, 220, 320, 140, 500, 220);
-				  triangle(-50, 220, 40, 130, 175, 220);
-				  fill(45, 45, 80);
-				  triangle(100, 220, 190, 120, 350, 220);
-				  triangle(190, 220, 370, 140, 500, 220);
-				  triangle(0, 220, 120, 130, 199, 220);
+					ellipse(345, 115, 40, 40);
+					ellipse(353, 158, 40, 40);
+					ellipse(340, 195, 40, 40);
 
-				  //foremountains
-				  noStroke();
-				  fill(170, 170, 130);
-				  triangle(190, 220, 370, 170, 500, 220);
-				  triangle(-50, 220, 70, 175, 175, 220);
-				  fill(100, 100, 90);
-				  triangle(100, 220, 190, 165, 350, 220);
+					//eyesockets
+					fill(179);
+					ellipse(185, 150, 80, 120);
+					ellipse(320, 150, 80, 120);
 
-				  //cloud 
-				  //no sure I like this but left it in for reference
-				  /*
-				  fill(200, 140);
-				 	ellipse(200, 90, 200, 60);
-				  ellipse(130, 80, 150, 40);
-				*/
-				  //tentacle
-				  /* still working on this part.
-				  seems like it could be easier and it would
-				  be fun to make the tentacle move.
-				  I was trying to experiment with bezier curves
-				  and verticies.
-				  beginShape();
-				  fill(255, 0, 255);
-				  stroke(230, 0, 230);
-				  strokeWeight(3);
-				  vertex(70, 350);
-				  bezierVertex(40, 300, 190, 160, 170, 130);
-				  bezierVertex(215, 170, 70, 270, 120, 355);
-				  bezierVertex(100, 363, 85, 358, 70, 350);
-				  endShape(CLOSE);
+					fill('black');
+					arc(185, 150, 80, 120, 180, PI);
+					arc(320, 150, 80, 120, 180, PI);
+					//Question? Whats the logical way to think 
+					//about these arc numbers??
 
-				  //suckers
-				  fill(240, 100, 240);
-				  stroke(100, 0, 100);
-				  strokeWeight(5)
-				  ellipse(96, 295, 17, 20);
-				  strokeWeight(4.5)
-				  ellipse(109, 265, 15, 18);
-				  strokeWeight(4);
-				  ellipse(123, 240, 11, 14);
-				  strokeWeight(3.5);
-				  ellipse(136, 220, 8, 10);
-				  strokeWeight(2.5);
-				  ellipse(144, 205, 6, 7);
-				  strokeWeight(2);
-				  ellipse(150, 192, 5, 7);
-				  strokeWeight(1.5);
-				  ellipse(156, 182, 3, 5);
-				  strokeWeight(1);
-				  ellipse(160, 175, 3, 5);
-				  ellipse(160, 175, 3, 4);
-					ellipse(163, 168, 3, 4);
-				  ellipse(166, 162, 3, 4);
-				 */
+					//Nose and freckles
+					fill('black');
+					strokeWeight(0);
+					triangle(260, 200, 240, 280, 280, 280);
+					ellipse(260, 276, 40, 40);
+
+					ellipse(255, 95, 15, 15);
+					ellipse(330, 300, 15, 15);
+
+					//teeth
+					strokeWeight(0);
+					fill('black');
+					rect(210, 350, 20, 80);
+					rect(235, 350, 20, 80);
+					rect(260, 350, 20, 80);
+					rect(285, 350, 20, 80);
+
+					fill('white');
+					rect(210, 385, 95, 10);
+
+
+					//Red flower outer petals
+					strokeWeight(10);
+					stroke(100, 0, 256, 140); //trans purple color
+					fill('red');
+					ellipse(35, 290, 50, 50);
+					ellipse(116, 290, 50, 50);
+					ellipse(35, 365, 50, 50);
+					ellipse(116, 365, 50, 50);
+
+					strokeWeight(0);
+					fill(100, 0, 256, 170); //trans purple color
+					ellipse(100, 325, 100, 80);
+					ellipse(50, 325, 100, 80);
+					ellipse(75, 300, 80, 100);
+					ellipse(75, 350, 80, 100);
+
+					//Red flower  inner petals
+					fill(255, 0, 0, 220); //trans red color
+					ellipse(100, 325, 80, 60);
+					ellipse(50, 325, 80, 60);
+					ellipse(75, 300, 60, 80);
+					ellipse(75, 350, 60, 80);
+
+					//Red flower  center grey highlights
+					fill(0, 0, 0, 150); //trans grey color
+					ellipse(100, 325, 50, 15);
+					ellipse(50, 325, 50, 15);
+					ellipse(75, 300, 15, 50);
+					ellipse(75, 350, 15, 50);
+
+					fill('black');
+					stroke('pink');
+					strokeWeight(5);
+					ellipse(75, 325, 20, 20);
+					point(75, 325);
+
+					//Purple flower  leaf
+					fill(0, 150, 0, 260); //trans green
+					strokeWeight(0);
+					triangle(480, 15, 455, 80, 400, 60);
+					triangle(390, 60, 440, 105, 365, 145);
+					triangle(360, 20, 390, 80, 460, 60);
+					triangle(475, 140, 450, 50, 400, 100);
+
+					//Purple flower  petal
+					fill(100, 0, 256, 230); //trans purple color	
+					ellipse(380, 80, 80, 50);
+					ellipse(458, 80, 80, 50);
+					ellipse(420, 40, 50, 80);
+					ellipse(420, 125, 50, 80);
+
+					fill('white');
+					stroke('pink');
+					strokeWeight(8);
+					ellipse(420, 80, 40, 40);
+					fill('black');
+					point(420, 80);
+
+					//Orange flower  
+					fill('orange');
+					strokeWeight(0);
+					ellipse(220, 23, 60, 30);
+					ellipse(280, 23, 60, 30);
+					ellipse(250, 30, 30, 60);
+					fill('blue');
+					ellipse(250, 10, 40, 20);
+
+					//Text
+					textSize(18);
+					fill('blue');
+					text('JC', 465, 485);
+					strokeWeight(5);
+					stroke('pink');
+					line(465, 460, 485, 460);
 
 
 				}
