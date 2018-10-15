@@ -1,0 +1,181 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Chickadel Adventure</title>
+        <script src="../libraries-p5/p5.js"></script>
+        <script src="chickadel-adventure.js"></script>
+    </head>
+    <body>
+        <h1>Chickadel Adventure</h1>
+        <pre>
+        	<code>
+				function setup() { 
+				  createCanvas(800, 600);
+
+				}
+				//global variable
+				var myColor1 = 0;
+				var myColor2 = 255;
+				var myColor3 = 0;
+				var myColor4 = 0;
+				var xCoord = 0;
+				var yCoord = 0;
+				var xCoord2 = 750;
+				var yCoord2 = 0;
+				var xCoord3 = 0;
+				var yCoord3 = 600;
+				var xCoord4 = 750;
+				var yCoord4 = 530;
+				var xCoord5 = 500;
+				var yCoord5 = 220;
+
+				function draw() {
+				  background('pink');
+				  //castle room
+				  fill(0);
+				  rect(300, 180, 160, 40);
+				  rect(300, 140, 20, 40);
+				  rect(330, 140, 20, 40);
+				  rect(370, 140, 20, 40);
+				  rect(410, 140, 20, 40);
+				  rect(440, 140, 20, 40);
+
+				  //dragon
+				  noStroke();
+				  fill(myColor1, 0, myColor2);
+				  rect(xCoord, yCoord, 80, 180);
+				  fill('pink');
+				  rect(xCoord, yCoord, 40, 20);
+				  rect(xCoord, yCoord, 50, 10);
+				  rect(xCoord + 70, yCoord, 10, 10);
+				  rect(xCoord, yCoord + 40, 40, 10);
+				  rect(xCoord, yCoord + 50, 50, 20);
+				  rect(xCoord + 40, yCoord + 20, 10, 10);
+				  rect(xCoord, yCoord + 50, 50, 20);
+				  rect(xCoord + 60, yCoord + 50, 20, 20);
+				  rect(xCoord + 70, yCoord + 40, 10, 10);
+				  rect(xCoord, yCoord + 70, 20, 20);
+				  rect(xCoord + 20, yCoord + 70, 10, 10);
+				  rect(xCoord, yCoord + 90, 10, 10);
+				  rect(xCoord, yCoord + 150, 40, 20);
+				  rect(xCoord, yCoord + 140, 10, 10);
+
+				  //yellow box hero
+				  fill(255, 255, 0);
+				  rect(xCoord2, yCoord2, 50, 50);
+				  fill('red');
+				  rect(xCoord2 + 30, yCoord2 + 30, 20, 10);
+
+				  //spear
+				  fill(255)
+				  rect(xCoord3 + 30, yCoord3 - 50, 10, 10);
+				  rect(xCoord3 + 40, yCoord3 - 40, 10, 10);
+				  rect(xCoord3, yCoord3 - 30, 60, 10);
+				  rect(xCoord3 + 40, yCoord3 - 20, 10, 10);
+				  rect(xCoord3 + 30, yCoord3 - 10, 10, 10);
+
+				  //cup
+				  fill(myColor3, myColor3 + 100, myColor3 + 255);
+				  rect(xCoord4 - 10, yCoord4 - 10, 10, 30);
+				  rect(xCoord4, yCoord4, 10, 30);
+				  rect(xCoord4 + 10, yCoord4, 10, 60);
+				  rect(xCoord4 + 20, yCoord4, 10, 30);
+				  rect(xCoord4 + 30, yCoord4 - 10, 10, 30);
+				  rect(xCoord4, yCoord4 + 50, 30, 10);
+
+				  //local variables
+				  myColor1 = myColor1 + 3;
+				  myColor2 = myColor2 - 1;
+				  myColor3 = myColor3 + 20
+				  xCoord = xCoord + 2;
+				  yCoord = yCoord + 2;
+				  xCoord2 = xCoord2 - 3;
+				  xCoord3 = xCoord3 + 1;
+				  yCoord3 = yCoord3 - 1;
+				  myColor4 = myColor4 + 1;
+
+				  //flashing chalice - it's magic
+				  if (myColor3 > 255) {
+				    myColor3 = 0
+				  }
+
+				  //dragon movement
+				  if (yCoord > 240) {
+				    yCoord = 240
+				    if (xCoord > 500) {
+				      xCoord = 500
+				    }
+				  }
+
+				  //dragon gets angry and flashes red
+				  if (myColor1 > 255) {
+				    myColor1 = 225
+				  }
+
+				  //yellow hero movement/stop
+				  if (xCoord2 < 240) {
+				    xCoord2 = 240
+				    yCoord2 = yCoord2 + 3
+				  }
+				  if (yCoord2 > 350) {
+				    yCoord2 = 350
+				  }
+				  //spear movement/stop
+				  if (xCoord3 > 270) {
+				    //hero grabs spear
+				    yCoord3 = 380
+				    //hero throws spear
+				    xCoord3 = xCoord3 + 5
+				  }
+
+				  //cup movement
+				  yCoord4 = yCoord4 - 1
+				  xCoord4 = xCoord4 - 1
+
+				  if (xCoord4 < 480) {
+				    xCoord4 = 480
+				  }
+				  if (yCoord4 < 300) {
+				    yCoord4 = 300
+				  }
+				  if (xCoord3 > 500) {
+				    xCoord3 = 840
+				    //dragon dies
+				    myColor1 = myColor1 - 30
+				    xCoord4 = 280
+				    stroke(0);
+				    line(540, 260, 550, 270);
+				    line(540, 270, 550, 260);
+
+				    //hero celebrates with chalice
+				    noStroke();
+				    fill('yellow')
+				    rect(230, 330, 10, 40);
+				    rect(220, 330, 10, 30);
+				    rect(230, 310, 10, 20);
+				    rect(290, 340, 20, 10);
+
+				    //smile
+				    fill('red')
+				    rect(270, 380, 10, 10);
+				    rect(260, 380, 10, 10);
+				    rect(250, 380, 10, 10);
+				    rect(250, 370, 10, 10);
+
+				  }
+
+
+				  /* something like that...
+				  inspired by the game 'adventure'
+				  tried to make the dragon 
+				  fall on face too
+				  but needed more time.
+				*/
+
+				}
+        	</code>
+        </pre>
+        
+    </body>
+       
+</html>

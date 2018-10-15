@@ -1,0 +1,153 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Junk Food</title>
+        <script src="../libraries-p5/p5.js"></script>
+        <script src="junk-food.js"></script>
+    </head>
+    <body>
+        <h1>Junk Food</h1>
+        <pre>
+        	<code>
+				var donutX = 100;
+				var donutY = 100;
+				var donutwidth = 100;
+				var donutheight = 100;
+				var pizzaX = 480;
+				var pizzaY = 50;
+				var pizzawidth = 100;
+				var pizzaheight = 12;
+				var burgerX = 100;
+				var burgerY = 340;
+				var burgerwidth = 100;
+				var burgerheight = 70;
+				var friesX = 440;
+				var friesY = 350;
+				var frieswidth = 80;
+				var friesheight = 60;
+
+				function setup() {
+				  createCanvas(600, 500); 
+				 //color picker website used: https://htmlcolorcodes.com/color-picker/
+				}
+
+				function draw() {
+				  background(0);
+				  
+				  //draw donut (starts in top left corner)
+				  //donut circle
+				  fill(239, 133, 195);
+				  noStroke();
+				  ellipse(donutX, donutY, donutwidth, donutheight); 
+				  
+				  //donut hole
+				  fill(0);
+				  ellipse(donutX + 2, donutY + 3, donutwidth - 60, donutheight - 60);
+				  
+				  //donut sprinkles
+				  fill(13, 163, 249);
+				  rect(donutX - 25, donutY - 35, donutwidth - 90, donutwidth - 95);  
+				  fill(248, 248, 4);
+				  rect(donutX + 25, donutY - 15, donutwidth - 90, donutwidth - 95);
+				  fill(144, 4, 248);
+				  rect(donutX - 5, donutY + 30, donutwidth - 90, donutwidth - 95);
+				  fill(54, 229, 6);
+				  rect(donutX - 42, donutY + 3, donutwidth - 90, donutwidth - 95);
+				  fill(229, 6, 43);
+				  rect (donutX + 11, donutY - 43, donutwidth - 90, donutwidth - 95);
+				  fill (255, 255, 255);
+				  rect (donutX + 33, donutY + 15, donutwidth - 90, donutwidth - 95);
+				  
+				  //draw pizza (starts in top right corner)
+				  fill(229, 180, 141);
+				  triangle(pizzaX, pizzaY, pizzaX + 50, pizzaY + 100, pizzaX - 50, pizzaY + 100);
+				  fill(173, 106, 51);
+				  rect(pizzaX - 50, pizzaY + 100, pizzawidth, pizzaheight);
+				  
+				  //pizza pepperoni
+				  fill(231, 41, 12); 
+				  ellipse(pizzaX - 10, pizzaY + 40, pizzawidth - 82, pizzaheight + 8);
+				  ellipse(pizzaX + 13, pizzaY + 60, pizzawidth - 82, pizzaheight + 8);
+				  ellipse(pizzaX - 25, pizzaY + 76, pizzawidth - 82, pizzaheight + 8);
+				  ellipse(pizzaX + 31, pizzaY + 85, pizzawidth - 82, pizzaheight + 8);
+
+				  //draw burger (starts in bottom left corner)
+				  //burger top bun
+				  fill(230, 147, 34);
+				  arc(burgerX, burgerY, burgerwidth, burgerheight, PI, TWO_PI);
+				  
+				  //burger cheese
+				  fill(248, 226, 11);
+				  rect(burgerX - 50, burgerY, burgerwidth, burgerheight - 60);
+				  
+				  //burger meat
+				  fill(113, 55, 7);
+				  rect(burgerX - 50, burgerY + 10, burgerwidth, burgerheight - 60);
+				  
+				  //burger lettuce
+				  fill(9, 205, 9);
+				  rect(burgerX - 50, burgerY + 20, burgerwidth, burgerheight - 60);
+				  
+				  //burger bottom bun
+				  fill(230, 147, 34);
+				  arc(burgerX, burgerY + 30, burgerwidth, burgerheight, TWO_PI, PI);
+				  
+				  //draw fries (starts in bottom right corner)
+				  //fries box
+				  fill(231, 41, 12); 
+				  rect (friesX, friesY, frieswidth, friesheight);
+				  
+				  //fries
+				  stroke(248, 226, 11);
+				  strokeWeight(10);
+				  strokeCap(SQUARE);
+				  line (friesX, friesY - 45, friesX + 10, friesY);
+				  line (friesX + 23, friesY - 35, friesX + 18, friesY);
+				  line (friesX + 37, friesY - 30, friesX + 39, friesY);
+				  line (friesX + 55, friesY - 40, friesX + 60, friesY);
+				  line (friesX + 80, friesY - 30, friesX + 68, friesY);
+				  
+				  //fries box top part (covers the fries)
+				  noStroke();
+				  fill(250, 89, 89);
+				  rect(friesX, friesY-3, frieswidth, friesheight - 50);
+				  
+				  //start movements
+				  //pizza movement (ends up as first object in the row)
+				  if (pizzaX > 100) {  //move left until x=100
+				    pizzaX = pizzaX - 4;
+				  }
+				  if (pizzaY < 200) { //move down until y=200
+				    pizzaY = pizzaY + 2;
+				  }
+				  
+				  //fries movement (ends up second in row)
+				  if (friesX > 190) { //move left until x=190
+				    friesX = friesX - 2; 
+				  }
+				  if (friesY > 252) { //move up until y=252
+				    friesY = friesY - 2; 
+				  }
+				     
+				  //donut movement (ends up third in row)
+				  if (donutX < 360) { //move right until x=360
+				    donutX = donutX + 2;
+				  }
+				  if (donutY < 260) { //move down until y=260
+				    donutY = donutY + 2;
+				  }
+				  
+				  //burger movement (ends up last in row)
+				  if (burgerX < 500) { //move right until x=500
+				    burgerX = burgerX + 4;
+				  }
+				  if (burgerY > 247) { //move up until y=247
+				    burgerY = burgerY - 2;
+				  } 
+				}
+        	</code>
+        </pre>
+        
+    </body>
+       
+</html>

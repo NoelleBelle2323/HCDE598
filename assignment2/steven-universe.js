@@ -1,0 +1,257 @@
+/*
+Kellie Dunn
+HCDE 598C, Fall 2018
+Assignment A2: Simple Animation
+
+This is an animation of characters from the tv show "Steven Universe."
+*/
+
+var GarnetX = 80;
+var GarnetY = 70;
+
+var PearlX = 600;
+var PearlY = 70;
+
+var AmethystX = 93;
+var AmethystY = 500;
+
+var StevenX = 630;
+var StevenY = 537;
+
+
+function setup() {
+  createCanvas(700, 600);
+}
+
+
+function draw() {
+
+
+
+  background("#0973a9"); //repaint the background
+
+  //Draw GARNET
+
+  //Garnet's hair
+  rectMode(CENTER); // Set rectMode to CENTER
+  fill(0); // Set fill to black
+  rect(GarnetX, GarnetY, 135, 110, 20); // Draw gray rect using CENTER mode with rounded corners, each having a radius of 20.
+
+  //Garnet's face
+  rectMode(CENTER); // Set rectMode to CENTER
+  strokeWeight(0);
+  fill("#cc3399"); // Set fill to Garnet skin tone
+  rect(GarnetX, GarnetY + 10, 45, 55, 10); // Draw rect using CENTER mode with rounded corners, each having a radius of 10.
+  rect(GarnetX, GarnetY + 46, 20, 18);
+
+  //Garnet's glasses
+  strokeWeight(1);
+  stroke(0)
+  fill("#ccffff");
+  beginShape();
+  vertex(GarnetX - 23, GarnetY - 18);
+  vertex(GarnetX - 23, GarnetY + 2);
+  vertex(GarnetX - 12, GarnetY + 11);
+  vertex(GarnetX, GarnetY + 2);
+  vertex(GarnetX + 12, GarnetY + 11);
+  vertex(GarnetX + 23, GarnetY + 2);
+  vertex(GarnetX + 23, GarnetY - 18);
+  endShape(CLOSE);
+
+  //Garnet's mouth
+  noFill();
+  strokeWeight(1);
+  curve(GarnetX - 7, GarnetY + 40, GarnetX - 7, GarnetY + 20, GarnetX + 7, GarnetY + 20, GarnetX + 7, GarnetY + 40);
+  line(GarnetX - 8, GarnetY + 25, GarnetX + 8, GarnetY + 25);
+  curve(GarnetX - 7, GarnetY + 13, GarnetX - 7, GarnetY + 30, GarnetX + 7, GarnetY + 30, GarnetX + 7, GarnetY + 3);
+
+
+
+  //draw PEARL
+
+  //Pearl's hair
+  fill("#ffcc99")
+  beginShape();
+  vertex(PearlX - 4, PearlY - 46);
+  vertex(PearlX + 32, PearlY - 39);
+  vertex(PearlX + 60, PearlY - 21);
+  vertex(PearlX + 81, PearlY - 8);
+  vertex(PearlX + 66, PearlY - 2);
+  vertex(PearlX + 76, PearlY + 3);
+  vertex(PearlX + 11, PearlY + 42);
+  endShape();
+
+  //Pearl's face
+  ellipseMode(CENTER); // Set ellipseMode to CENTER
+  fill("#fffff2"); // Set fill to Pearl skin tone
+  ellipse(PearlX, PearlY, 60, 90); // Draw ellipse using CENTER mode
+
+  //Pearl's nose
+  line(PearlX - 10, PearlY - 3, PearlX - 30, PearlY + 2);
+  line(PearlX - 30, PearlY + 2, PearlX - 16, PearlY + 10);
+
+  //Pearl's eyes
+  ellipseMode(CENTER);
+  fill("white");
+  ellipse(PearlX - 18, PearlY - 11, 15, 20);
+  fill("#ccffff");
+  ellipse(PearlX - 18, PearlY - 11, 5, 10)
+  fill("white");
+  ellipse(PearlX + 5, PearlY - 11, 15, 20);
+  fill("#ccffff");
+  ellipse(PearlX + 5, PearlY - 11, 5, 10);
+
+  //Pearl's mouth
+  noFill();
+  strokeWeight(1);
+  curve(PearlX - 23, PearlY + 11, PearlX - 13, PearlY + 23, PearlX + 6, PearlY + 18, PearlX + 10, PearlY + 6);
+
+  //Pearl's pearl
+  ellipseMode(CENTER);
+  fill("white");
+  ellipse(PearlX - 4, PearlY - 34, 20, 25);
+
+
+  //draw AMETHYST
+
+  //Amethyst's face
+  ellipseMode(CENTER);
+  fill("#cc99cc");
+  ellipse(AmethystX, AmethystY, 90, 90);
+
+  //Amethyst's eye
+  ellipseMode(CENTER);
+  fill("white");
+  ellipse(AmethystX - 19, AmethystY - 5, 30, 30);
+  fill("black");
+  ellipse(AmethystX - 19, AmethystY - 5, 15, 14);
+
+  //Amethyst's mouth
+  noFill();
+  strokeWeight(1);
+  curve(AmethystX - 14, AmethystY + 35, AmethystX - 12, AmethystY + 23, AmethystX + 7, AmethystY + 23, AmethystX + 9, AmethystY + 35);
+  line(AmethystX - 16, AmethystY + 28, AmethystX + 11, AmethystY + 28);
+  curve(AmethystX - 14, AmethystY + 14, AmethystX - 14, AmethystY + 34, AmethystX + 9, AmethystY + 34, AmethystX + 9, AmethystY + 14);
+
+  //Amethyst's hair
+  fill("#dacff3")
+  beginShape();
+  vertex(AmethystX - 18, AmethystY - 28);
+  vertex(AmethystX + 4, AmethystY - 3);
+  vertex(AmethystX + 27, AmethystY + 76);
+  vertex(AmethystX + 50, AmethystY + 44);
+  vertex(AmethystX + 77, AmethystY + 35);
+  vertex(AmethystX + 69, AmethystY - 5);
+  vertex(AmethystX + 22, AmethystY - 53);
+  vertex(AmethystX - 32, AmethystY - 51);
+  vertex(AmethystX - 65, AmethystY - 14);
+  vertex(AmethystX - 68, AmethystY + 41);
+  vertex(AmethystX - 53, AmethystY + 56);
+  vertex(AmethystX - 18, AmethystY - 28);
+  endShape();
+
+
+  //draw STEVEN
+
+  //Steven's hair
+  ellipseMode(CENTER); // Set ellipseMode to CENTER
+  strokeWeight(0);
+  fill("black"); // Set fill to black
+  ellipse(StevenX - 53, StevenY - 1, 40, 40);
+  ellipse(StevenX - 46, StevenY - 37, 44, 44);
+  ellipse(StevenX - 15, StevenY - 66, 45, 45);
+  ellipse(StevenX + 22, StevenY - 61, 40, 40);
+  ellipse(StevenX + 29, StevenY - 28, 30, 40);
+
+  //Steven's face
+  ellipseMode(CENTER); // Set ellipseMode to CENTER
+  strokeWeight(1);
+  fill("#ffc8b2"); // Set fill to Steven skin tone
+  ellipse(StevenX, StevenY, 90, 75);
+  strokeWeight(0);
+  ellipse(StevenX, StevenY - 21, 70, 80);
+
+  //Steven's ear
+  ellipseMode(CENTER); // Set ellipseMode to CENTER
+  strokeWeight(0);
+  fill("#ffc8b2"); // Set fill to Steven skin tone
+  ellipse(StevenX - 39, StevenY - 18, 30, 20);
+
+  //Steven's eyebrows
+  stroke("black");
+  strokeWeight(9);
+  line(StevenX - 24, StevenY - 44, StevenX - 10, StevenY - 48);
+  line(StevenX + 10, StevenY - 50, StevenX + 25, StevenY - 43);
+
+  //Steven's eyes
+  ellipseMode(CENTER);
+  strokeWeight(1);
+  fill("white");
+  ellipse(StevenX - 14, StevenY - 18, 20, 25);
+  ellipse(StevenX + 16, StevenY - 22, 20, 25);
+  fill("black");
+  ellipse(StevenX - 14, StevenY - 18, 8, 12);
+  ellipse(StevenX + 16, StevenY - 22, 8, 12);
+
+  //Steven's nose
+  line(StevenX + 2, StevenY - 7, StevenX + 2, StevenY);
+  line(StevenX + 7, StevenY - 7, StevenX + 7, StevenY);
+
+  //Steven's mouth
+  noFill();
+  strokeWeight(1);
+  curve(StevenX - 5, StevenY - 5, StevenX - 20, StevenY + 10, StevenX + 21, StevenY + 13, StevenX + 15, StevenY - 7);
+
+  // ANIMATE THE CHARACTERS!
+
+  //Garnet moves down
+  if (GarnetY < 300) { // we want Garnet to stop once Garnet reaches y=300
+    GarnetX += 2; // This notation means "increase GarnetX by 2"
+    GarnetY += 10;
+  }
+
+  //Amethyst moves up
+  if (frameCount > 10) { // Amethyst doesn't start moving until after 10 frames have passed
+    if (AmethystY > 300) { // we want Amethyst to stop once Amethyst reaches y=300
+      AmethystX += 10; // This notation means "increase AmethystX by 10"
+      AmethystY -= 10;
+    }
+  }
+
+  //Pearl moves down
+  if (frameCount > 5) { // Pearl doesn't start moving until after 5 frames have passed
+
+    if (PearlY < 300) { // we want Pearl to stop once Pearl reaches y=300
+      PearlX -= 4; // This notation means "decrease Pearl by 4"
+      PearlY += 5;
+    }
+
+    //Steven moves up
+    if (frameCount > 8) { // Steven doesn't start moving until after 8 frames have passed
+
+      if (StevenY > 318) { // we want Steven to stop once Steven reaches y=318
+        StevenX -= 1; // This notation means "decrease Steven by 1"
+        StevenY -= 4;
+      }
+    }
+  }
+
+
+
+  /*
+  
+  // creates the grey rectangle in the upper left corner
+  fill('grey');
+  stroke('grey');
+  rect(0, 0, 180, 40);
+
+  // sets the color of the text
+  fill('black')
+  stroke('black');
+  strokeWeight(1);
+
+  // writes the text of the current coordinates in the corner
+  text("x: " + mouseX + " y: " + mouseY, 10, 15);
+  
+  */
+}

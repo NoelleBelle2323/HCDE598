@@ -1,0 +1,389 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Moscow Mule</title>
+        <script src="../libraries-p5/p5.js"></script>
+        <script src="moscow-mule.js"></script>
+    </head>
+    <body>
+        <h1>Moscow Mule</h1>
+        <pre>
+        	<code>
+				var bg //background color
+
+				var xCoordMug = 250;
+				var yCoordMug = 250;
+
+				var xCoordIce = 50;
+				var yCoordIce = 450;
+
+				var xCoordShot = 50;
+				var yCoordShot = 50;
+
+				var xCoordGinger = 450;
+				var yCoordGinger = 50;
+
+				var xCoordLime = 450;
+				var yCoordLime = 450;
+
+				var xCoordMug2 = 125; // I had to create a 2nd variable in order 
+				var yCoordMug2 = 350; //to make them move after they had stopped?
+
+				var xCoordIce2 = 117; //Used proportions/triangles 200*0.5/1.5=67+50=117
+				var yCoordIce2 = 250;
+
+				var xCoordShot2 = 210; // 200*1.2/1.5=160+50=210
+				var yCoordShot2 = 250;
+
+				var xCoordGinger2 = 290; // 450-160
+				var yCoordGinger2 = 250;
+
+				var xCoordLime2 = 383; // 450-67
+				var yCoordLime2 = 250;
+
+				var xPourShot = 205; //liquid pouring from shot
+				var yPourShot = 260;
+
+				var PourGingerTop = 272; //liquid pouring from ginger beer
+			  var PourGingerBottom = 1;
+
+				var xStraw = 345;
+				var yStraw = 319;
+
+				function setup() {
+				  createCanvas(500, 500);
+				  bg = color(85, 107, 47)
+
+				}
+
+
+				function draw() {
+				  background(bg);
+			   
+				  //Ice
+				  noStroke();
+				  fill(180, 255, 255);
+				  rect(xCoordIce - 12, yCoordIce, 15, 15);
+				  rect(xCoordIce, yCoordIce - 21, 15, 15);
+				  rect(xCoordIce + 12, yCoordIce, 15, 15);
+
+				  //Shot Glass
+				  noStroke();
+				  fill(205);
+				  beginShape();
+				  vertex(xCoordShot - 15, yCoordShot - 20);
+				  vertex(xCoordShot + 15, yCoordShot - 20);
+				  vertex(xCoordShot + 10, yCoordShot + 10);
+				  vertex(xCoordShot - 10, yCoordShot + 10);
+				  endShape();
+
+				  //Ginger
+				  noStroke();
+				  fill(255, 230, 170);
+				  beginShape();
+				  vertex(xCoordGinger - 8, yCoordGinger - 70);
+				  vertex(xCoordGinger + 8, yCoordGinger - 70);
+				  vertex(xCoordGinger + 15, yCoordGinger - 35);
+				  vertex(xCoordGinger + 15, yCoordGinger + 10);
+				  vertex(xCoordGinger - 15, yCoordGinger + 10);
+				  vertex(xCoordGinger - 15, yCoordGinger - 35);
+				  endShape();
+				  fill(150, 180, 130);
+				  rect(xCoordGinger - 15, yCoordGinger - 30, 30, 25);
+
+				  //Lime
+				  fill(80, 255, 90);
+				  arc(xCoordLime, yCoordLime, 30, 30, PI, TWO_PI);
+				  fill(219, 247, 200);
+				  arc(xCoordLime, yCoordLime, 23, 23, PI, TWO_PI);
+
+				  //Mug in front of objects
+				  noStroke();
+				  fill(255, 185, 90);
+				  beginShape();
+				  vertex(xCoordMug - 20, yCoordMug - 30);
+				  vertex(xCoordMug + 20, yCoordMug - 30);
+				  curveVertex(xCoordMug + 30, yCoordMug);
+				  vertex(xCoordMug + 20, yCoordMug + 30);
+				  vertex(xCoordMug - 20, yCoordMug + 30);
+				  curveVertex(xCoordMug - 30, yCoordMug);
+				  vertex(xCoordMug - 20, yCoordMug - 30);
+				  vertex(xCoordMug + 20, yCoordMug - 30);
+				  endShape();
+
+				  stroke(255, 185, 90); //mug handle
+				  strokeWeight(4);
+				  noFill();
+				  arc(xCoordMug - 28, yCoordMug, 30, 30, HALF_PI, -HALF_PI);
+
+				  //Animation Scene 1 - move mug down
+
+				  yCoordMug = yCoordMug + 1
+
+				  if (yCoordMug > 350) {
+				    yCoordMug = 350
+
+				    //Animation Scene 2 - move from corners towards center
+
+				    // Ice to center
+				    xCoordIce = xCoordIce + 0.5
+				    yCoordIce = yCoordIce - 1.5
+
+				    if (yCoordIce < 250) {
+				      yCoordIce = 250;
+				      xCoordIce = xCoordIce - 0.5
+				    }
+
+				    // Shot to center
+				    xCoordShot = xCoordShot + 1.2
+				    yCoordShot = yCoordShot + 1.5
+
+				    if (yCoordShot > 250) {
+				      yCoordShot = 250;
+				      xCoordShot = xCoordShot - 1.2
+				    }
+
+				    // Ginger to center
+				    xCoordGinger = xCoordGinger - 1.2
+				    yCoordGinger = yCoordGinger + 1.5
+
+				    if (yCoordGinger > 250) {
+				      yCoordGinger = 250;
+				      xCoordGinger = xCoordGinger + 1.2
+				    }
+
+				    // Lime to center
+				    xCoordLime = xCoordLime - 0.5
+				    yCoordLime = yCoordLime - 1.5
+
+				    if (yCoordLime < 250) {
+				      yCoordLime = 250;
+				      xCoordLime = xCoordLime + 0.5
+
+				      //Animation Scene 3 - move Mug left when yCoordLime reaches halfway
+
+				      xCoordMug = xCoordMug - 1
+
+				      if (xCoordMug < 125) {
+				        xCoordMug = 125
+
+
+				        // Animation Scene 4 SETUP - could not figure out how 
+				        // to make an object move after it had stopped so
+				        // I made new variables in their new locations
+
+				        noStroke();
+				        fill(bg)
+				        rect(0, 0, 500, 300); // to block top objects
+
+				        //Ice
+				        fill(180, 255, 255);
+				        rect(xCoordIce2 - 12, yCoordIce2, 15, 15);
+				        rect(xCoordIce2, yCoordIce2 - 21, 15, 15);
+				        rect(xCoordIce2 + 12, yCoordIce2, 15, 15);
+
+				        //Shot Glass
+				        noStroke();
+				        fill(205);
+				        beginShape();
+				        vertex(xCoordShot2 - 15, yCoordShot2 - 20);
+				        vertex(xCoordShot2 + 15, yCoordShot2 - 20);
+				        vertex(xCoordShot2 + 10, yCoordShot2 + 10);
+				        vertex(xCoordShot2 - 10, yCoordShot2 + 10);
+				        endShape();
+
+				        //Ginger
+				        noStroke();
+				        fill(255, 230, 170);
+				        beginShape();
+				        vertex(xCoordGinger2 - 8, yCoordGinger2 - 70);
+				        vertex(xCoordGinger2 + 8, yCoordGinger2 - 70);
+				        vertex(xCoordGinger2 + 15, yCoordGinger2 - 35);
+				        vertex(xCoordGinger2 + 15, yCoordGinger2 + 10);
+				        vertex(xCoordGinger2 - 15, yCoordGinger2 + 10);
+				        vertex(xCoordGinger2 - 15, yCoordGinger2 - 35);
+				        endShape();
+				        fill(150, 180, 130);
+				        rect(xCoordGinger2 - 15, yCoordGinger2 - 30, 30, 25);
+
+				        //Lime
+				        fill(80, 255, 90);
+				        arc(xCoordLime2, yCoordLime2, 30, 30, PI, TWO_PI);
+				        fill(219, 247, 200);
+				        arc(xCoordLime2, yCoordLime2, 23, 23, PI, TWO_PI);
+
+				        //Mug in front of objects
+				        noStroke();
+				        fill(255, 185, 90);
+				        beginShape();
+				        vertex(xCoordMug2 - 20, yCoordMug2 - 30);
+				        vertex(xCoordMug2 + 20, yCoordMug2 - 30);
+				        curveVertex(xCoordMug2 + 30, yCoordMug2);
+				        vertex(xCoordMug2 + 20, yCoordMug2 + 30);
+				        vertex(xCoordMug2 - 20, yCoordMug2 + 30);
+				        curveVertex(xCoordMug2 - 30, yCoordMug2);
+				        vertex(xCoordMug2 - 20, yCoordMug2 - 30);
+				        vertex(xCoordMug2 + 20, yCoordMug2 - 30);
+				        endShape();
+
+				        // Animation 4 - Ice goes down
+
+				        yCoordIce2 = yCoordIce2 + 1 // to block ice
+				        fill(bg);
+				        rect(50, yCoordMug2 - 30, 300, 200);
+
+				        // Mug in front of objects
+				        noStroke();
+				        fill(255, 185, 90);
+				        beginShape();
+				        vertex(xCoordMug2 - 20, yCoordMug2 - 30);
+				        vertex(xCoordMug2 + 20, yCoordMug2 - 30);
+				        curveVertex(xCoordMug2 + 30, yCoordMug2);
+				        vertex(xCoordMug2 + 20, yCoordMug2 + 30);
+				        vertex(xCoordMug2 - 20, yCoordMug2 + 30);
+				        curveVertex(xCoordMug2 - 30, yCoordMug2);
+				        vertex(xCoordMug2 - 20, yCoordMug2 - 30);
+				        vertex(xCoordMug2 + 20, yCoordMug2 - 30);
+				        endShape();
+				        stroke(255, 185, 90); //mug handle
+				        strokeWeight(4);
+				        noFill();
+				        arc(xCoordMug2 - 28, yCoordMug2, 30, 30, HALF_PI, -HALF_PI);
+
+				        if (yCoordIce2 > 350) {
+				          xCoordMug2 = xCoordMug2 + 1
+
+				          if (xCoordMug2 > 145) {
+				            fill(bg);
+				            noStroke();
+				            rect(180, 220, 50, 50); // to block original shot
+
+				            // Shot 3 - pouring shot appears
+				            fill(240);
+				            ellipse(xPourShot, yPourShot, 10, 30);
+				            yPourShot = yPourShot + 1
+
+				            // Rotated shot glass
+				            noStroke();
+				            fill(205);
+				            beginShape();
+				            vertex(xCoordShot2 - 28, yCoordShot2 - 8);
+				            vertex(xCoordShot2 - 14, yCoordShot2 - 20);
+				            vertex(xCoordShot2 + 15, yCoordShot2 + 6);
+				            vertex(xCoordShot2 - 10, yCoordShot2 + 25);
+				            endShape();
+
+				            yCoordIce2 = yCoordIce2 + 1 // to block shot liquid
+				            fill(bg);
+				            rect(50, yCoordMug2 - 30, 300, 200);
+			              
+			              if(xCoordMug2 > 300){ // ginger beer rotated
+			              
+			                noStroke(); //to block old ginger beer
+			                fill(bg);
+			                rect(260, 180, 50, 80);
+			                
+			                fill(242, 228, 140); // liquid pouring from ginger beer
+			                rect(336, PourGingerTop, 8, PourGingerBottom);
+			                PourGingerBottom = PourGingerBottom + 1
+			                
+			                // Rotated Ginger Beer
+			                noStroke();
+			                fill(255, 230, 170);
+			                beginShape();
+			                vertex(xCoordGinger2 + 3, yCoordGinger2 - 40);
+			                vertex(xCoordGinger2 + 35, yCoordGinger2 - 8);
+			                vertex(xCoordGinger2 + 56, yCoordGinger2 + 22);
+			                vertex(xCoordGinger2 + 45, yCoordGinger2 + 33);
+			                vertex(xCoordGinger2 + 14, yCoordGinger2 + 13);
+			                vertex(xCoordGinger2 - 18, yCoordGinger2 - 19);
+			                endShape();
+			                fill(150, 180, 130); //label
+			                beginShape();
+			                vertex(xCoordGinger2 + 14, yCoordGinger2 - 29);
+			                vertex(xCoordGinger2 + 31, yCoordGinger2 - 12);
+			                vertex(xCoordGinger2 + 10, yCoordGinger2 + 9);
+			                vertex(xCoordGinger2 - 7, yCoordGinger2 - 8);
+			                endShape();
+			                
+			              } //ginger beer rotated
+			              
+			              fill(bg); //to block beer being poured
+			              rect(320, 360, 50, 200);
+			              
+			              // Mug in front of objects
+				            noStroke();
+				            fill(255, 185, 90);
+				            beginShape();
+				            vertex(xCoordMug2 - 20, yCoordMug2 - 30);
+				            vertex(xCoordMug2 + 20, yCoordMug2 - 30);
+				            curveVertex(xCoordMug2 + 30, yCoordMug2);
+				            vertex(xCoordMug2 + 20, yCoordMug2 + 30);
+				            vertex(xCoordMug2 - 20, yCoordMug2 + 30);
+				            curveVertex(xCoordMug2 - 30, yCoordMug2);
+				            vertex(xCoordMug2 - 20, yCoordMug2 - 30);
+				            vertex(xCoordMug2 + 20, yCoordMug2 - 30);
+				            endShape();
+
+				            stroke(255, 185, 90); //mug handle
+				            strokeWeight(4);
+				            noFill();
+				            arc(xCoordMug2 - 28, yCoordMug2, 30, 30, HALF_PI, -HALF_PI);
+			              
+			              // Animation 6 - Mug stops for ginger beer to pour
+			              
+			              if(xCoordMug2 > 355){
+			                xCoordMug2 = 355;
+			              
+			              } //if Animation 6
+			              
+			              // Animation 7 - ginger beer to end pouring, lime goes down
+			              
+			              if(PourGingerBottom > 120){
+			                PourGingerBottom = 120;
+			                PourGingerTop = PourGingerTop + 1;
+			                yCoordLime2 = yCoordLime2 + 1;
+			                xCoordLime2 = xCoordLime2 - 0.1;
+			                
+			                // Animation 8 - lime stops, straw forms
+			                
+			                if(yCoordLime2 > 323){
+			                  yCoordLime2 = 323;
+			                  xCoordLime2 = xCoordLime2 + 0.1;
+			                  
+			                  fill(bg); // to cover shot and ginger
+			                  noStroke();
+			                  rect(180, 200, 200, 100);
+			                  
+			                  stroke(0); //straw
+			                  strokeWeight(2);
+			                  line(xCoordMug2 - 10, yCoordMug2 - 31, xStraw, yStraw);
+			                  xStraw = xStraw - 1;
+			                  yStraw = yStraw - 1;
+			                  
+			                  if(xStraw < 330){
+			                    xStraw = 330;
+			                    yStraw = 304;
+			                  }
+			                       
+			                } //if lime stops    
+			                
+			              } //if Animation 7
+
+				          } //if Animation 5
+
+				        } //if Animation 4
+
+				      } //if Animation 3
+
+				    } //if Animation 2
+
+				  } //if Animation 1 
+
+				}
+        	</code>
+        </pre>
+        
+    </body>
+       
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Eggs</title>
+        <script src="../libraries-p5/p5.js"></script>
+        <script src="eggs.js"></script>
+    </head>
+    <body>
+        <h1>Eggs</h1>
+        <pre>
+        	<code>
+				var egg1X;
+				var egg1Y;
+				var egg2X;
+				var egg2Y;
+				var egg2X;
+				var egg3Y;
+				var egg4X;
+				var egg4Y;
+
+				function setup() {
+				  createCanvas(600, 600);
+				  egg1X=0;
+				  egg1Y=0;
+				  egg2X=500;
+				  egg2Y=500;
+				  egg3X=73;
+				  //add 450 to y value 73+450
+				  egg3Y=523;
+				  egg4X=550;
+				  egg4Y=73;
+				}
+
+				function draw() {
+				  background('#ad6ddb');
+				   // creates the grey rectangle in the upper left corner
+				  fill('grey');
+				  stroke('grey');
+				  rect(0, 0, 100, 20);
+
+				  // sets the color of the text
+				  fill('black');
+				  stroke('black');
+				  strokeWeight(1);
+
+				  // writes the text of the current coordinates in the corner
+				  text("x: " + mouseX + " y: " + mouseY, 10, 15);
+				  
+				  //egg1 yellow
+				  
+				  fill('#fff084');
+				  stroke('#ffac1e');
+				  strokeWeight(8);
+				  ellipse(60 + egg1X,60 + egg1Y, 90,110 );
+				  
+				  //line middle
+				  stroke('#ffac1e');
+				  strokeWeight(15);
+				  line(egg1X + 19, egg1Y + 60, egg1X + 100, egg1Y + 60)
+				  
+				  //line top
+				  stroke('#ffac1e');
+				  strokeWeight(10);
+				  line(egg1X + 25, egg1Y + 30, egg1X + 95, egg1Y + 30)
+				  
+				  //line bottom
+				  stroke('#ffac1e');
+				  strokeWeight(10);
+				  line(egg1X + 25, egg1Y + 90, egg1X + 95, egg1Y + 90)
+				  
+				  
+				  egg1X=egg1X + 5;
+				  if (egg1X > 180) {
+				  	egg1X=180;
+				    egg1Y=egg1Y + 5;
+				    
+				  }
+				  if (egg1Y> 240) {
+				    egg1Y=240;
+				  }
+				  
+				 //egg2 green
+				  
+				 fill('#d1ffb2');
+				 stroke('#83ea3c');
+				 strokeWeight(8);
+				 ellipse(egg2X, egg2Y, 90, 110);
+
+				  
+				//bezier
+				 stroke('#83ea3c');
+				 strokeWeight(15);
+				  //fat middle bezier
+				 bezier(egg2X-40, egg2Y, egg2X + 15, egg2Y + 65, egg2X + 50, egg2Y, egg2X + 37, egg2Y + 10);
+				  
+				  //thin upper bezier
+				  stroke('#83ea3c');
+				 strokeWeight(10);
+				 bezier(egg2X-20, egg2Y-48, egg2X - 10, egg2Y + 15, egg2X + 50, egg2Y, egg2X + 40, egg2Y - 25);
+				  
+				  egg2X=egg2X - 5;
+				  if (egg2X < 350) {
+				  	egg2X=350;
+				    egg2Y=egg2Y - 5;
+				  }
+				  if (egg2Y<300) {
+				    egg2Y=300;
+				  }
+				  
+				  // egg3 blue
+				  
+				  fill('#b2f2ff');
+				  stroke('#2cb9d6');
+				  strokeWeight(8);
+				  ellipse(egg3X,egg3Y, 90,110 );
+				  
+				  //circle 1
+				  fill('#2cb9d6');
+				  strokeWeight(0);
+				  ellipse(egg3X - 10 , egg3Y - 32, 45,45);
+				  
+				  //circle 2
+				  fill('#2cb9d6');
+				  strokeWeight(0);
+				  ellipse(egg3X + 25 , egg3Y - 20, 15,15);
+				  
+				  //circle 3
+				  fill('#2cb9d6');
+				  strokeWeight(0);
+				  ellipse(egg3X + 28 , egg3Y + 20, 35,35);
+				  
+				  //circle 4
+				  fill('#2cb9d6');
+				  strokeWeight(0);
+				  ellipse(egg3X - 20, egg3Y + 5, 8,8);
+				  
+				  //circle 5
+				  fill('#2cb9d6');
+				  strokeWeight(0);
+				  ellipse(egg3X - 15, egg3Y + 40, 25,25);
+				  
+				  egg3X=egg3X + 5;
+				  if (egg3X > 130) {
+				  	egg3X=130;
+				    egg3Y=egg3Y - 5;
+				  }
+				  if (egg3Y < 300) {
+				  	egg3Y=300;
+				  }
+				  
+				  //egg 4 pink
+				  fill('#ffd1ea');
+				  stroke('#e86aae');
+				  strokeWeight(8);
+				  ellipse(egg4X,egg4Y,90,110);
+				  
+				  //thin line top
+				  stroke('#e86aae');
+				  strokeWeight(5);
+				  line(egg4X - 13 , egg4Y - 55, egg4X + 34, egg4Y - 32);
+				  
+				  //thick line top-ish
+				  stroke('#e86aae');
+				  strokeWeight(15);
+				  line(egg4X - 33 , egg4Y - 30, egg4X + 40, egg4Y + 6);
+				  
+				  //thin line top-ish
+				  stroke('#e86aae');
+				  strokeWeight(5);
+				  line(egg4X - 29 , egg4Y - 45, egg4X + 40, egg4Y - 10);
+				  
+				  //thin line bottom
+				  stroke('#e86aae');
+				  strokeWeight(5);
+				  line(egg4X - 40 , egg4Y - 17, egg4X + 40, egg4Y + 23)
+				  
+				  //thick line bottom
+				  stroke('#e86aae');
+				  strokeWeight(15);
+				  line(egg4X - 40 , egg4Y + 20, egg4X + 10, egg4Y + 45);
+				  
+				  //thin line bottom
+				  stroke('#e86aae');
+				  strokeWeight(5);
+				  line(egg4X - 45 , egg4Y, egg4X + 30, egg4Y + 37);
+				  
+				  egg4X=egg4X - 5;
+				  if (egg4X < 460) {
+				    egg4X=460;
+				    egg4Y=egg4Y + 5;
+				  }
+				  if (egg4Y > 300) {
+				  	egg4Y=300;
+				  }
+				}
+        	</code>
+        </pre>
+        
+    </body>
+       
+</html>

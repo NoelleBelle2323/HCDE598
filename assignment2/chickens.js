@@ -1,0 +1,156 @@
+var bodyColor;
+var wingColor;
+var yellowX = 0;
+var yellowY = 0;
+var brownX = 450;
+var brownY = 0;
+var grayX = 0;
+var grayY = 450;
+var redX = 450;
+var redY = 450;
+var wait = 0;
+
+function setup() {
+  createCanvas(600, 600);
+}
+
+function draw() {
+  background(141,198,63);
+	//coordinates();
+  
+  // Set my origin
+  translate(-150,-150);
+  
+	// Yellowish Chicken;
+  bodyColor = color(255,242,0);
+  wingColor = color(232,215,55);
+  chicken(bodyColor, wingColor, yellowX, yellowY, );
+
+  // Brownish Chicken
+  bodyColor = color(196,154,108);
+  wingColor = color(194,181,155);
+  chicken(bodyColor, wingColor, brownX, brownY, true);
+  
+  // Grayish Chicken
+  bodyColor = color(209,211,212);
+  wingColor = color(241,242,242);
+  chicken(bodyColor, wingColor, grayX, grayY, );
+  
+  // Redish Chicken
+  bodyColor = color(190,30,45);
+  wingColor = color(247,148,29); 
+  chicken(bodyColor, wingColor, redX, redY, true);
+
+  // Movement
+  horizontalMovement();
+  verticalMovement();
+}
+
+function coordinates() {
+  // creates the grey rectangle in the upper left corner
+  fill('grey');
+  stroke('grey');
+  rect(0, 0, 100, 20);
+
+  // sets the color of the text
+  fill('black')
+  stroke('black');
+  strokeWeight(1);
+
+  // writes the text of the current coordinates in the corner
+  text("x: " + mouseX + " y: " + mouseY, 10, 15);
+}
+
+function chicken(bodyColor, wingColor, xPos, yPos, flip) {
+  push();
+  if(flip) {
+    // Get the flip X compasation for the translates.
+    var factorX = xPos*2+450;
+    translate(factorX,0);
+  	scale(-1,1);
+  }
+  translate(xPos, yPos);
+  // Body
+  noStroke();
+  fill(bodyColor);
+  ellipse (220, 220, 75, 100);
+  
+  // Eye
+  noStroke();
+  fill('white');
+  ellipse (233, 202, 18, 18);
+  fill('black');
+  ellipse (236, 203, 7, 7);
+  
+  // Wing
+  noStroke();
+  fill(wingColor);
+  ellipse (205, 235, 28, 35);
+ 
+  // Peak
+ 	fill(241,90,41);
+ 	triangle(253, 198, 271, 195, 257, 208);
+ 	
+  // Legs
+  stroke ("brown");
+  strokeWeight(2);
+ 	line(227, 259, 235, 280);
+ 	line(210, 258, 202, 280);
+  pop();
+}
+
+function horizontalMovement() {
+  if (yellowX<150) {
+  	yellowX = yellowX+1;
+  }
+  if (brownX<100) {
+  	brownX = brownX+1;	
+  }
+  if (grayX>500){
+  	grayX = grayX-1;
+  }
+  if (redX>300) {
+  	redX = redX-1;
+  }
+}
+
+function verticalMovement() {
+  var done = true;
+  if (yellowY<250) {
+  	yellowY = yellowY+1;
+    done = false;
+  }
+  if (brownY<250) {
+  	brownY = brownY+1;	
+    done = false;
+  }
+  if (grayY>250){
+  	grayY = grayY-1;
+    done = false;
+  }
+  if (redY>250) {
+  	redY = redY-1;
+    done = false;
+  }
+  // Restart when done.
+  if (done) {
+  	textSize(16);
+    textStyle(BOLD);
+    text("Waiting... " +(100-wait), 370, 350);
+    if ((wait = wait+1)>=100) {
+      resetVariables()
+    }
+  }
+}
+
+function resetVariables() {
+	yellowX = 0;
+	yellowY = 0;
+	brownX = 450;
+	brownY = 0;
+	grayX = 0;
+	grayY = 450;
+	redX = 450;
+	redY = 450;
+  wait = 0;
+}
