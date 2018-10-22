@@ -21,7 +21,8 @@ function draw() {   // creates the grey rectangle in the upper left corner
 
      // sets the color of the text
     
-  fill('white')   stroke('white');  
+  fill('white');
+  stroke('white');  
   noStroke();
 
     
