@@ -1,0 +1,115 @@
+function setup() {
+  createCanvas(800, 800);
+}
+
+// define text to be shown
+var startadventure = "Choose your own adventure! Press '0' to continue";
+var adventureintro = "Press '1' or '2' for an adventure!";
+var adventure1 = "OWL!";
+var adventure2 = "GHOST!";
+
+
+// function to display the first screen
+function ChooseYourOwnAdventure() {
+  background('white');
+  fill('black');
+  textSize(34);
+  noStroke();
+  text(startadventure, 10, height / 2);
+}
+
+// function to display the second screen
+function AdventureOptions() {
+
+  background('black'); // redraws the background when function is called
+  fill('white');
+  textSize(36);
+  noStroke();
+  textAlign(CENTER)
+  text(adventureintro, 400, 400);
+}
+
+// function to display the owl, taken from "Getting Started with p5.js, Chapter 9, Example 9-5"
+function owl(x, y) {
+  background('cyan'); // redraws the background when the function is called
+  push();
+  translate(x, y); // can translate anywhere on the canvas with x,y input
+  stroke(0);
+  strokeWeight(70);
+  line(0, -35, 0, -65); // Body
+  noStroke();
+  fill(255);
+  ellipse(-17.5, -65, 35, 35); // Left eye dome
+  ellipse(17.5, -65, 35, 35); // Right eye dome
+  arc(0, -65, 70, 70, 0, PI); // Chin
+  fill(0);
+  ellipse(-14, -65, 8, 8); // Left eye
+  ellipse(14, -65, 8, 8); // Right eye
+  quad(0, -58, 4, -51, 0, -44, -4, -51); // Beak
+  pop();
+  fill('black');
+  textSize(40);
+  noStroke();
+  text(adventure1, 200, 350); // displays "OWL!"
+}
+
+// function to display the ghost, taken from my digital portrait project
+function ghost() {
+  // create ghost curve
+  background('orange'); // redraws the background
+  fill('white'); // ghost color
+  stroke('black');
+  strokeWeight(1); // change weight of points to be easily hidden
+
+  point(550, 200); // point a (corner of ghost)
+  point(580, 175); // point b
+  point(610, 200); // point c
+  point(640, 175); // point d
+  point(670, 200); // point e
+  point(700, 175); // point f
+  point(730, 200); // point g (corner of ghost)
+  point(640, 30); // point h (top of ghost)
+
+  strokeWeight(2); // outline of ghost
+  beginShape();
+  curveVertex(550, 200); // start curve at point a
+  curveVertex(550, 200); // from point a to b
+  curveVertex(580, 175); // from point b to c
+  curveVertex(610, 200); // from point c to d
+  curveVertex(640, 175); // from point d to e
+  curveVertex(670, 200); // from point e to f
+  curveVertex(700, 175); // from point f to g
+  curveVertex(730, 200); // from point g to h
+  curveVertex(640, 30); // from point h to a
+  curveVertex(550, 200);
+  curveVertex(550, 200); // end curve at a
+  endShape(); // do not want to close the curve
+
+  // ghost eyes
+  fill('black');
+  ellipse(630, 80, 7, 15); // eye 1
+  ellipse(650, 80, 7, 15); // eye 1
+  fill('black');
+  textSize(40);
+  noStroke();
+  text(adventure2, 600, 350); // displays "GHOST!"
+}
+
+function draw() {
+
+  // start on 'Choose your own adventure' screen
+  ChooseYourOwnAdventure();
+
+  // trigger adventure options screen for user
+  if (key == "0") {
+    AdventureOptions();
+  }
+
+  // Adventure Options screen user interaction, choose owl or ghost 
+  if (key == "1") {
+    owl(200, 200);
+  } else if (key == "2") {
+    ghost();
+  }
+
+}

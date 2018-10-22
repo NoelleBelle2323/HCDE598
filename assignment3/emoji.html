@@ -1,0 +1,472 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Emoji</title>
+        <script src="../libraries-p5/p5.js"></script>
+        <script src="emoji.js"></script>
+    </head>
+    <body>
+        <h1>Emoji</h1>
+        <pre>
+        	<code>
+				//Emoji
+
+				/** I took the animation from assignment 2 and created conditions for animation
+					* If 1 is pressed, draw the emoji
+					* If 2 is pressed, the emojis will move to the center
+				  * If 3 is pressed, the emojis will rotate
+					*/	
+
+				//Setting up variable
+				var x1 = 50;
+				var y1 = 50;
+				var x2 = 550;
+				var y2 = 50;
+				var x3 = 50;
+				var y3 = 450;
+				var x4 = 550;
+				var y4 = 450;
+				var shapewidth = 70;
+				var shapeheight = 70;
+				var text1 = "Press 1 to draw emojis";
+				var text2 = "Press 2 to move emojis to center";
+				var text3 = "Press 3 to rotate emojis";
+				var text4 = "You did it!";
+				var onPage1 = true;
+				var onPage2 = false;
+
+				var angle = 0;
+
+
+				function setup() {
+				  createCanvas(600, 500);
+				  angleMode(DEGREES);
+				  ellipseMode(CENTER);
+				}
+
+				function draw() {
+
+				  if(onPage1){
+				  	background(220);
+						
+				    TextStyle();
+				  
+						text(text1, 300,450);
+				  
+						//When 1 is pressed
+				  	if (key == 1){
+				    
+				      onPage1 = false;
+				      onPage2 = true;
+				      CoverOldText();
+				      DrawEmojis(); //Draw emojis
+				      TextStyle(); //Define text style
+				      text(text2, 300,450);//Display new texts
+				  	} 
+				    
+				  }
+				    
+				  	//When 2 is pressed
+				  	if (key == 2){
+				    background(220);
+				    MoveToCenter();
+				    TextStyle();
+				    text(text3, 300,450);//Display new texts
+					
+				    }
+				  
+				  //When 3 is pressed
+				  	if(key == 3){
+				    background(220);
+				    RotateEmojis();
+				    TextStyle();
+				    text(text4,300,450);//Display new texts
+				    
+				    } 
+				     
+
+				  
+				//Specify text styles
+				function TextStyle(){
+					fill(0);
+				  textFont('Helvetica');
+				  textSize(20);
+					textAlign(CENTER);
+				}
+				  
+				//Rectangle to cover old texts
+				function CoverOldText(){
+				    noStroke();
+				  	fill(220);
+				  	rect(180,430,250,40);
+				}
+				  
+
+
+				//////////////////////////////////
+				/////Draw all Emojis/////////////
+				///////////////////////////////// 
+				  
+				function DrawEmojis(){
+				  
+					//Top left emoji
+				  noStroke(); //outter circle 
+				  fill("#F48B85");
+				  ellipse(x1,y1,shapewidth+25,shapeheight+25);
+				  
+				  	noStroke();
+				  	fill("#FCE284"); //inner circle
+				  	ellipse(x1,y1,shapewidth,shapeheight);
+				  
+				  		//Left eye
+				  		noStroke();
+				  		fill(255);
+				  		ellipse(x1-15,y1-10,shapewidth-50,shapeheight-45);
+				  
+				  			//eyeball			
+				  			noStroke();
+				  			fill(0);
+				  			ellipse(x1-12,y1-4,shapewidth-60,shapeheight-60);
+				  
+				  		//Right eye
+				  		noStroke();
+				  		fill(255);
+				  		ellipse(x1+15,y1-10,shapewidth-50,shapeheight-45);  
+				  
+				 				//eyeball
+				  			noStroke();
+				  			fill(0);
+				  			ellipse(x1+17,y1-4,shapewidth-60,shapeheight-60);
+				  
+				  		//mouth
+							fill("#DC594B");
+				 			arc(x1,y1+20,12,12,0,225,CHORD);
+				  
+				  
+					//Top right emoji
+				  noStroke(); //outter circle 
+				  fill("#80CCB7");
+				  ellipse(x2,y2,shapewidth+25,shapeheight+25);
+				  
+				  	noStroke();
+				  	fill("#FCE284"); //inner circle
+				  	ellipse(x2,y2,shapewidth,shapeheight);
+				  
+				  		//Left eye
+				      noStroke();
+				      fill(255);
+				      ellipse(x2-15,y2-10,shapewidth-50,shapeheight-45);
+				  
+				        noStroke();//eyeball
+				        fill(0);
+				        ellipse(x2-17,y2-4,shapewidth-60,shapeheight-60);
+
+				      //Right eye
+				      noStroke();
+				      fill(255);
+				      ellipse(x2+15,y2-10,shapewidth-50,shapeheight-45);  
+
+				        noStroke(); //eyeball
+				        fill(0);
+				        ellipse(x2+13,y2-4,shapewidth-60,shapeheight-60); 
+
+				       //mouth
+				      fill("#DC594B");
+				      arc(x2,y2+20,12,12,0,225,CHORD);
+
+					//Bottom left emoji
+				  noStroke(); //outter circle 
+				  fill("#85B6CE");
+				  ellipse(x3,y3,shapewidth+25,shapeheight+25);
+				  
+				    noStroke();
+				    fill("#FCE284"); //inner circle
+				    ellipse(x3,y3,shapewidth,shapeheight);
+
+				      //Left eye
+				      noStroke();
+				      fill(255);
+				      ellipse(x3-15,y3-10,shapewidth-50,shapeheight-45);
+
+				        noStroke();//eyeball
+				        fill(0);
+				        ellipse(x3-12,y3-15,shapewidth-60,shapeheight-60);
+
+				      //Right eye
+				      noStroke();
+				      fill(255);
+				      ellipse(x3+15,y3-10,shapewidth-50,shapeheight-45);  
+
+				        noStroke(); //eyeball
+				        fill(0);
+				        ellipse(x3+17,y3-15,shapewidth-60,shapeheight-60);
+				  
+				      //mouth
+				      fill("#DC594B");
+				      arc(x3,y3+20,12,12,0,225,CHORD);
+				  
+					//Bottom right emoji
+				  noStroke(); //outter circle 
+				  fill("#DBAA05");
+				  ellipse(x4,y4,shapewidth+25,shapeheight+25);
+				  
+				    noStroke();
+				    fill("#FCE284"); //inner circle
+				    ellipse(x4,y4,shapewidth,shapeheight);
+				  
+				      //Left eye
+				      noStroke();
+				      fill(255);
+				      ellipse(x4-15,y4-10,shapewidth-50,shapeheight-45);
+				  
+				        noStroke();//eyeball
+				        fill(0);
+				        ellipse(x4-18,y4-15,shapewidth-60,shapeheight-60);
+				  
+				      //Right eye
+				      noStroke();
+				      fill(255);
+				      ellipse(x4+15,y4-10,shapewidth-50,shapeheight-45);  
+
+				        noStroke(); //eyeball
+				        fill(0);
+				        ellipse(x4+12,y4-15,shapewidth-60,shapeheight-60);
+				  
+				    //mouth
+				    fill("#DC594B");
+				    arc(x4,y4+20,12,12,0,225,CHORD);
+
+				}
+
+				//////////////////////////////////
+				/////Rotate Emojis////////////////
+				///////////////////////////////// 
+
+				function RotateEmojis(){
+				  
+				  
+				  //Set new coordinates for top left emoji
+				  push();
+				  translate(x1,y1);
+				  angle = angle+1;	
+				  rotate(angle);
+				  
+					//Top left emoji
+				  noStroke(); //outter circle 
+				  fill("#F48B85");
+				  ellipse(x1-x1,y1-y1,shapewidth+25,shapeheight+25);
+				  
+				  	noStroke();
+				  	fill("#FCE284"); //inner circle
+				  	ellipse(x1-x1,y1-y1,shapewidth,shapeheight);
+				  
+				  		//Left eye
+				  		noStroke();
+				  		fill(255);
+				  		ellipse(x1-x1-15,y1-y1-10,shapewidth-50,shapeheight-45);
+				  
+				  			//eyeball			
+				  			noStroke();
+				  			fill(0);
+				  			ellipse(x1-x1-12,y1-y1-4,shapewidth-60,shapeheight-60);
+				  
+				  		//Right eye
+				  		noStroke();
+				  		fill(255);
+				  		ellipse(x1-x1+15,y1-y1-10,shapewidth-50,shapeheight-45);  
+				  
+				 				//eyeball
+				  			noStroke();
+				  			fill(0);
+				  			ellipse(x1-x1+17,y1-y1-4,shapewidth-60,shapeheight-60);
+				  
+				  		//mouth
+							fill("#DC594B");
+				 			arc(x1-x1,y1-y1+20,12,12,0,225,CHORD);
+				  		
+				  pop();
+				  
+				  //Set new coordinates for Top right Emoji
+				  push();
+				  translate(x2,y2);
+				  angle = angle+1;	
+				  rotate(angle);
+				  
+					//Top right emoji
+				  noStroke(); //outter circle 
+				  fill("#80CCB7");
+				  ellipse(x2-x2,y2-y2,shapewidth+25,shapeheight+25);
+				  
+				  	noStroke();
+				  	fill("#FCE284"); //inner circle
+				  	ellipse(x2-x2,y2-y2,shapewidth,shapeheight);
+				  
+				  		//Left eye
+				      noStroke();
+				      fill(255);
+				      ellipse(x2-x2-15,y2-y2-10,shapewidth-50,shapeheight-45);
+				  
+				        noStroke();//eyeball
+				        fill(0);
+				        ellipse(x2-x2-17,y2-y2-4,shapewidth-60,shapeheight-60);
+
+				      //Right eye
+				      noStroke();
+				      fill(255);
+				      ellipse(x2-x2+15,y2-y2-10,shapewidth-50,shapeheight-45);  
+
+				        noStroke(); //eyeball
+				        fill(0);
+				        ellipse(x2-x2+13,y2-y2-4,shapewidth-60,shapeheight-60); 
+
+				       //mouth
+				      fill("#DC594B");
+				      arc(x2-x2,y2-y2+20,12,12,0,225,CHORD);
+				  
+				  pop();
+				  
+				  //Set new coordinates for Bottom Left Emoji
+				  push();
+				  translate(x3,y3);
+				  angle = angle+1;	
+				  rotate(-angle);
+				  
+					//Bottom left emoji
+				  noStroke(); //outter circle 
+				  fill("#85B6CE");
+				  ellipse(x3-x3,y3-y3,shapewidth+25,shapeheight+25);
+				  
+				    noStroke();
+				    fill("#FCE284"); //inner circle
+				    ellipse(x3-x3,y3-y3,shapewidth,shapeheight);
+
+				      //Left eye
+				      noStroke();
+				      fill(255);
+				      ellipse(x3-x3-15,y3-y3-10,shapewidth-50,shapeheight-45);
+
+				        noStroke();//eyeball
+				        fill(0);
+				        ellipse(x3-x3-12,y3-y3-15,shapewidth-60,shapeheight-60);
+
+				      //Right eye
+				      noStroke();
+				      fill(255);
+				      ellipse(x3-x3+15,y3-y3-10,shapewidth-50,shapeheight-45);  
+
+				        noStroke(); //eyeball
+				        fill(0);
+				        ellipse(x3-x3+17,y3-y3-15,shapewidth-60,shapeheight-60);
+				  
+				      //mouth
+				      fill("#DC594B");
+				      arc(x3-x3,y3-y3+20,12,12,0,225,CHORD);
+				  pop();
+				  
+				 //Set new coordinates for Bottom Left Emoji
+				  push();
+				  translate(x4,y4);
+				  angle = angle+1;	
+				  rotate(-angle);
+				  
+					//Bottom right emoji
+				  noStroke(); //outter circle 
+				  fill("#DBAA05");
+				  ellipse(x4-x4,y4-y4,shapewidth+25,shapeheight+25);
+				  
+				    noStroke();
+				    fill("#FCE284"); //inner circle
+				    ellipse(x4-x4,y4-y4,shapewidth,shapeheight);
+				  
+				      //Left eye
+				      noStroke();
+				      fill(255);
+				      ellipse(x4-x4-15,y4-y4-10,shapewidth-50,shapeheight-45);
+				  
+				        noStroke();//eyeball
+				        fill(0);
+				        ellipse(x4-x4-18,y4-y4-15,shapewidth-60,shapeheight-60);
+				  
+				      //Right eye
+				      noStroke();
+				      fill(255);
+				      ellipse(x4-x4+15,y4-y4-10,shapewidth-50,shapeheight-45);  
+
+				        noStroke(); //eyeball
+				        fill(0);
+				        ellipse(x4-x4+12,y4-y4-15,shapewidth-60,shapeheight-60);
+				  
+				    //mouth
+				    fill("#DC594B");
+				    arc(x4-x4,y4-y4+20,12,12,0,225,CHORD);
+
+				  pop();
+				}
+
+				  
+				//////////////////////////////////
+				/////Move Emojis to Center////////
+				///////////////////////////////// 
+				function MoveToCenter() {
+				  
+				  DrawEmojis();
+				  
+				  //Movement - top left emoji
+				  if (x1<150){
+				  	x1 = x1+5;  
+				  }
+				  
+				  	else{
+				    	y1 = y1+ 5;
+				  }
+				  
+				  if(y1>250){
+				    y1=250;
+				  }
+				  
+					//Movement - top right emoji
+				  
+				  if(x2>350){
+				    x2 = x2-5;
+				  }
+				  
+				  else{
+				  	y2 = y2+5;
+				  }
+				  
+				  if(y2>250){
+				    y2 = 250;
+				  }
+
+					//Movement - bottom left emoji
+				  if(x3<250){
+				    x3 = x3+5;
+				  }
+				  
+				  else{
+				    y3 = y3-5;
+				  }
+				  
+				  if(y3<250){
+				    y3 = 250;
+				  }
+				  
+					//Movement - bottom right emoji
+				  if(x4>450){
+				    x4=x4-5;
+				  }
+				  else
+				    y4= y4-5
+				  
+				  if(y4<250){
+				    y4=250;
+				  }
+
+					}
+				}
+        	</code>
+        </pre>
+        
+    </body>
+       
+</html>

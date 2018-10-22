@@ -1,0 +1,174 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Pumpkin Picking</title>
+        <script src="../libraries-p5/p5.js"></script>
+        <script src="pumpkin-picking.js"></script>
+    </head>
+    <body>
+        <h1>Pumpkin Picking</h1>
+        <pre>
+        	<code>
+				function setup() {
+				  createCanvas(500, 400);
+				}
+
+				function draw() {
+				  background(0);
+				  textFont('Georgia', 19);
+				  fill(255);
+				  text('Try to find the pumpkin!', 150, 100);
+				  text('Click the ZERO key to begin!', 135, 300);
+
+				  pumpkin(width / 2, height / 2);
+
+				  if (key == '0') {
+				    background(0);
+				    door('1', 50, 100);
+				    door('2', 200, 100);
+				    door('3', 350, 100);
+
+				    textFont('Georgia', 19);
+				    fill(255);
+				    text('Open a door by pressing 1, 2, or 3 on the keypad.', 50, 50);
+				  }
+
+				  if (key == '1') {
+				    background(0);
+				    pennyWise(80, 150);
+				    door('2', 200, 100);
+				    door('3', 350, 100);
+
+				    textFont('Georgia', 19);
+				    fill(255);
+				    text('Oh no! Try again.', 180, 350);
+				  }
+
+				  if (key == '2') {
+				    background(0);
+				    door('1', 50, 100);
+				    pumpkin(250, 170);
+				    door('3', 350, 100);
+
+				    textFont('Georgia', 19);
+				    fill(255);
+				    text('YOU WIN!', 210, 350);
+				  }
+
+				  if (key == '3') {
+				    background(0);
+				    door('1', 50, 100);
+				    door('2', 200, 100);
+				    pennyWise(380, 150);
+
+				    textFont('Georgia', 19);
+				    fill(255);
+				    text('Oh no! Try again.', 180, 350);
+				  }
+				}
+
+				function pumpkin(x, y) {
+				  stroke(56, 221, 53); //vine
+				  noFill();
+				  bezier(x + 3, y - 25, x + 3, y - 40, x + 18, y - 40, x + 18, y - 30);
+				  bezier(x + 18, y - 30, x + 18, y - 25, x + 11, y - 25, x + 11, y - 29);
+
+				  fill(181, 155, 103); //top
+				  noStroke();
+				  rect(x - 3, y - 33, 6, 10);
+
+				  stroke(181, 155, 103); //right leg
+				  line(x + 5, y, x + 5, y + 40);
+				  line(x + 5, y + 40, x + 8, y + 40);
+
+				  line(x - 5, y, x - 5, y + 40); //left leg
+				  line(x - 5, y + 40, x - 8, y + 40);
+
+				  line(x + 29, y, x + 35, y - 10); //arms
+				  line(x - 30, y, x - 36, y - 10);
+
+				  fill(252, 158, 42); //body
+				  noStroke();
+				  ellipse(x, y, 60, 50);
+
+				  stroke(0); //mouth
+				  strokeWeight(3);
+				  noFill();
+				  arc(x, y, 15, 10, TWO_PI, PI);
+
+				  stroke(0); //left eye
+				  strokeWeight(3);
+				  noFill();
+				  arc(x - 10, y - 8, 8, 8, PI, TWO_PI);
+
+				  stroke(0); //right eye
+				  strokeWeight(3);
+				  noFill();
+				  arc(x + 10, y - 8, 8, 8, PI, TWO_PI);
+				}
+
+				function pennyWise(x, y) {
+				  stroke('orange');
+				  fill('orange');
+				  beginShape();
+				  vertex(x, y + 20);
+				  vertex(x - 10, y);
+				  vertex(x + 5, y - 5);
+				  vertex(x + 20, y - 20);
+				  vertex(x + 35, y - 5);
+				  vertex(x + 50, y);
+				  vertex(x + 40, y + 20);
+				  endShape();
+
+				  noStroke(); //face
+				  fill(255);
+				  rect(x, y, 40, 40, 10);
+				  arc(x + 20, y + 40, 20, 15, TWO_PI, PI);
+
+				  fill('red'); //mouth
+				  arc(x + 20, y + 33, 10, 20, TWO_PI, PI);
+				  fill(0);
+				  arc(x + 20, y + 33, 7, 10, TWO_PI, PI);
+				  noFill();
+				  strokeWeight(2);
+				  stroke('red');
+				  arc(x + 20, y + 23, 25, 20, TWO_PI, PI);
+				  line(x + 7, y + 23, x + 7, y + 10);
+				  line(x + 32, y + 23, x + 32, y + 10);
+
+				  noStroke(); //eyes
+				  fill(255, 200, 0);
+				  arc(x + 10, y + 20, 10, 10, TWO_PI, PI);
+				  arc(x + 30, y + 20, 10, 10, TWO_PI, PI);
+				  fill(0);
+				  arc(x + 11, y + 20, 5, 5, TWO_PI, PI);
+				  arc(x + 29, y + 20, 5, 5, TWO_PI, PI);
+
+				  fill('red'); //nose
+				  ellipse(x + 20, y + 28, 6, 3);
+
+				  stroke(0); //eyebrows
+				  noFill();
+				  line(x + 5, y + 13, x + 17, y + 18);
+				  line(x + 35, y + 13, x + 23, y + 18);
+
+				}
+
+				function door(doorNumber, x, y) {
+				  fill(181, 155, 103); //door
+				  noStroke();
+				  rect(x, y, 100, 200);
+
+				  fill(119, 90, 55); //door knob
+				  ellipse(x + 85, y + 100, 15, 15);
+
+				  textSize(32); //number on door
+				  fill('black');
+				  text(doorNumber, x + 40, y + 50);
+				}
+        	</code>
+        </pre>
+        
+    </body>
+       
+</html>

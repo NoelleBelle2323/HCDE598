@@ -1,0 +1,241 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Wonderland</title>
+        <script src="../libraries-p5/p5.js"></script>
+        <script src="wonderland.js"></script>
+    </head>
+    <body>
+        <h1>Wonderland</h1>
+        <pre>
+        	<code>
+				var screenNum = 0;
+				var ateCookie = false;
+				var drankPotion = false;
+				var tooSmall = false;
+				var tooBig = false;
+
+				//function to draw the left arrow key
+				function keyButton1(x, y) {
+				  push();
+				  noStroke();
+				  fill(55, 78, 94); //dark blue
+				  rect(x, y, 50, 50);
+				  fill(100, 141, 171); //light blueish
+				  rect(x + 5, y + 5, 35, 35);
+				  fill(171, 53, 50); //dark red
+				  triangle(x + 6, y + 20, x + 15, y + 6, x + 15, y + 35);
+				  stroke(171, 53, 50);
+				  strokeWeight(5);
+				  line(x + 15, y + 20, x + 30, y + 20);
+				  pop();
+				}
+				// draw the right arrow key
+				function keyButton2(x, y) {
+				  push();
+				  noStroke();
+				  fill(55, 78, 94); //dark blue
+				  rect(x, y, 50, 50);
+				  fill(100, 141, 171); //light blueish
+				  rect(x + 10, y + 5, 35, 35);
+				  fill(171, 53, 50); //dark red
+				  triangle(x + 42, y + 20, x + 33, y + 6, x + 33, y + 35);
+				  stroke(171, 53, 50);
+				  strokeWeight(5);
+				  line(x + 15, y + 20, x + 30, y + 20);
+				  pop();
+				}
+
+
+				function setup() {
+				  createCanvas(700, 700);
+				}
+
+				function draw() {
+				  background(121, 105, 171); //purple
+				 // text(screenNum, 15, 15); //print screen number to screen so I know where I am in the story
+
+				  //screen 0 backgroud
+				  if (screenNum === 0) {
+				    keyButton1(165, 275);
+				    keyButton2(460, 275);
+				    textSize(50);
+				    fill(77, 161, 169); // turquoise
+				    text('EAT ME?', 225, 200);
+				    textSize(32);
+				    text('NO', 175, 250);
+				    text('YES', 450, 250);
+
+				    //cookie
+				    fill(107, 88, 71); //body
+				    ellipse(350, 500, 300, 300);
+				    fill('black'); //eyes
+				    ellipse(300, 540, 40, 40);
+				    ellipse(400, 540, 40, 40);
+				    fill('white');
+				    ellipse(295, 535, 20, 20);
+				    ellipse(395, 535, 20, 20);
+				    fill(171, 100, 120); //pink mouth
+				    ellipse(350, 600, 20, 30);
+				  }
+
+				  //screen 1 background
+				  else if (screenNum === 1) {
+				    keyButton1(165, 275);
+				    keyButton2(460, 275);
+				    textSize(50);
+				    fill(77, 161, 169);
+				    text('Go Back', 70, 250);
+				    text('Go Through', 400, 250);
+				    if (tooSmall === true) {
+				      text("You're too small!", 150, 200);
+				    } else {
+				      text('WHICH WAY?', 200, 200);
+				    }
+				    //door
+				    push();
+				    fill(171, 160, 85);
+				    beginShape();
+				    curveVertex(200, 700);
+				    curveVertex(200, 700);
+				    curveVertex(300, 380);
+				    curveVertex(500, 380);
+				    curveVertex(500, 700);
+				    curveVertex(500, 700);
+				    endShape();
+				    pop();
+				    fill('black'); //knob
+				    ellipse(485, 510, 20, 20);
+				  }
+
+				  //screen 2 background
+				  else if (screenNum === 2) {
+				    keyButton1(180, 225);
+				    keyButton2(460, 225);
+				    textSize(40);
+				    text('NO', 175, 200);
+				    text('YES', 450, 200);
+
+				    // potion bottle
+				    push();
+				    noStroke();
+				    fill(94, 237, 235); //neck
+				    rect(295, 310, 60, 60);
+				    ellipse(325, 510, 300, 300); //body
+				    stroke('black'); //opening
+				    ellipse(325, 314, 62, 15);
+				    fill('white'); //label
+				    rect(220, 405, 200, 200);
+				    textSize(40);
+				    fill('black');
+				    text('DRINK ME', 225, 525);
+				    pop();
+				  }
+
+				  //screen 3 background
+				  else if (screenNum === 3) {
+				    keyButton1(165, 275);
+				    keyButton2(460, 275);
+				    textSize(50);
+				    text('Go Back', 70, 250);
+				    text('Go Through', 400, 250);
+				    if (tooBig === true) {
+				      text("You're too big!", 200, 200);
+				    } else {
+				      text('WHICH WAY?', 200, 200);
+				    }
+				    //wall and hole
+				    push();
+				    fill(171, 160, 85);
+				    rect(150, 340, 400, 550);
+				    noStroke();
+				    fill(69, 61, 31);
+				    rect(400, 680, 20, 20);
+				    ellipse(410, 680, 20, 20);
+				    pop();
+				  }
+
+				  //screen 4 background
+				  else if (screenNum === 4) {
+				    textSize(40);
+				    fill(75, 140, 235); //blue
+				    text('You found the White Rabbit!', 90, 600);
+
+				    //rabbit
+				    noStroke();
+				    fill('white');
+				    ellipse(300, 200, 60, 250); //ears
+				    ellipse(400, 200, 60, 250);
+				    ellipse(350, 400, 300, 300); //head
+				    fill('black');
+				    ellipse(300, 380, 50, 50); //eyes
+				    ellipse(360, 380, 50, 50);
+				    fill('white');
+				    ellipse(290, 370, 20, 20);
+				    ellipse(350, 370, 20, 20);
+				    fill('pink');
+				    ellipse(320, 420, 30, 30); //nose
+				    ellipse(345, 420, 30, 30);
+				    stroke('black');
+				    line(305, 420, 280, 415); //whiskers
+				    line(308, 430, 280, 440);
+				    line(360, 420, 375, 415);
+				    line(358, 430, 375, 435);
+				  }
+				}
+
+
+				//logic of pressing keys 
+				function keyPressed() {
+				  //some code I wrote to be able to manually switch between the screens
+				  /*print("keyPressed "+ keyCode);
+				  if (keyCode === LEFT_ARROW) {
+				    screenNum = screenNum - 1
+				    if (screenNum <= 0) {
+				      screenNum = 0;
+				    }
+				  } else if (keyCode === RIGHT_ARROW) {
+				    screenNum = screenNum + 1
+				    if (screenNum >= 4) {
+				      screenNum = 4;
+				    }
+				  }*/
+				  //I went down a dark hole here and not even sure I got it right. It's too late to start over now :(
+				  if (screenNum === 0 && keyCode === RIGHT_ARROW) {
+				    screenNum = 1
+				    ateCookie = true
+				  } else if (screenNum === 0 && keyCode === LEFT_ARROW) {
+				    screenNum = 1
+				    ateCookie = false
+				  } else if (screenNum === 1 && keyCode === RIGHT_ARROW && ateCookie === false) {
+				    tooSmall = true
+				  } else if (screenNum === 1 && keyCode === LEFT_ARROW) {
+				    screenNum = 0
+				    tooSmall = false
+				  } else if (screenNum === 1 && keyCode === RIGHT_ARROW && ateCookie === true) {
+				    screenNum = 2
+				  } else if (screenNum === 1 && keyCode === LEFT_ARROW) {
+				    screenNum = 0
+				  } else if (screenNum === 2 && keyCode === RIGHT_ARROW) {
+				    screenNum = 3
+				    drankPotion = true
+				  } else if (screenNum === 2 && keyCode === LEFT_ARROW) {
+				    screenNum = 3
+				    drankPotion = false
+				  }else if (screenNum === 3 && keyCode === RIGHT_ARROW && drankPotion === false) {
+				    tooBig = true
+				  } else if (screenNum === 3  && keyCode === LEFT_ARROW) {
+				    screenNum = 2
+				    tooBig = false
+				  } else if (screenNum === 3 && keyCode === RIGHT_ARROW && drankPotion === true) {
+				    screenNum = 4
+				  } else if (screenNum === 3 && keyCode === LEFT_ARROW) {
+				    screenNum = 2
+				  }
+				}
+        	</code>
+        </pre>
+        
+    </body>
+       
+</html>
