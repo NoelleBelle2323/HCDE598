@@ -1,0 +1,70 @@
+//scaled drawing using paramters
+
+//fixed colors and drawing settings
+var colorBody = 'brown';
+var colorHeart = 'red';
+var colorEyeball = 'white';
+var colorEye = 'blue';
+var colorFace = 'black';
+var colorBackground = 'black';
+var bodyWeight = 15;
+var faceWeight = 1;
+//var x = 75;     commented out no longer need as it is in parameter now
+//var y = 550;
+//var ellipseHW = 10;
+
+//setup of canvas and background color
+function setup() {
+  createCanvas(600, 600);
+  background(colorBackground);
+
+}
+//setting up the function to draw ET and use parameters
+function drawEt(x, y, ellipseHW) {
+
+  //ET body
+  fill(colorBody);
+  ellipse(x, y, ellipseHW * 7, ellipseHW * 6.5);
+  ellipse(x, y / 1.157, ellipseHW * 4.5, ellipseHW * 3);
+
+  strokeWeight(bodyWeight);
+  stroke(colorBody);
+  line(x, y / 1.037, x, y / 1.145);
+
+  //et heart 
+  noStroke();
+  fill(colorHeart);
+  ellipse(x * 1.067, y / 1.009, ellipseHW, ellipseHW);
+  ellipse(x * 1.2, y / 1.009, ellipseHW, ellipseHW);
+  triangle(x * 1.268, y / 1.009, x * 1.135, y * 1.019, x, y / 1.009);
+
+  //et eyes
+  noStroke();
+  fill(colorEyeball);
+  ellipse(x / 1.25, y / 1.156, ellipseHW * 1.5, ellipseHW);
+  ellipse(x * 1.20, y / 1.156, ellipseHW * 1.5, ellipseHW);
+
+  noStroke();
+  fill(colorEye);
+  ellipse(x / 1.25, y / 1.156, ellipseHW, ellipseHW);
+  ellipse(x * 1.20, y / 1.156, ellipseHW, ellipseHW);
+
+  //et nostrils
+  noStroke();
+  fill(colorFace);
+  ellipse(x / 1.069, y / 1.144, ellipseHW / 2, ellipseHW / 2);
+  ellipse(x * 1.054, y / 1.144, ellipseHW / 2, ellipseHW / 2);
+
+  //et mouth
+  stroke(colorFace);
+  strokeWeight(faceWeight);
+  line(x / 1.099, y / 1.1653, x - 10, y / 1.34);
+  line(x * 1.08, y / 1.1653, x * 1.135, y / 1.134);
+  line(x / 1.120, y / 1.127, x * 1.135, y / 1.127);
+}
+
+//calling the function to draw ET and randomize the size with each key press
+function keyPressed() {
+  var size = random(0, 50);
+  drawEt(mouseX, mouseY, size);
+}

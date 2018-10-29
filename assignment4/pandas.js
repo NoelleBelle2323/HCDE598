@@ -1,0 +1,53 @@
+function setup() {
+  createCanvas(600, 600);
+  background(200, 200, 0);
+  frameRate(15);
+  fill(180, 180, 100);
+  noStroke();
+  rect(0, 0, 600, 30);
+  fill(100);
+  textStyle(BOLD);
+  textSize(15);
+  text('Press and move your mouse to draw pandas wherever on the canvas.', 50, 20);
+}
+
+function draw() {
+
+  if (mouseIsPressed) {
+
+    drawPanda(mouseX, mouseY, random(0, 1.3));
+  }
+
+}
+
+function drawPanda(x, y, s) {
+  translate(x, y);
+  scale(s);
+  noStroke();
+  fill(180, 150, 0);
+  ellipse(0, -55, 260, 120);
+  fill(0);
+  ellipse(-70, -15, 70, 60);
+  ellipse(70, -15, 70, 60);
+  fill(255);
+  ellipse(0, -110, 180, 80);
+  rect(-90, -110, 180, 95);
+  arc(0, -65, 260, 140, PI / 6, 5 * PI / 6);
+  fill(0);
+  ellipse(-80, -130, 55, 55);
+  ellipse(80, -130, 55, 55);
+  ellipse(-45, -60, 65, 65);
+  fill(200);
+  ellipse(45, -60, 65, 65);
+  fill(255);
+  ellipse(-42, -62, 45, 40);
+  fill(0);
+  ellipse(-38, -58, 25, 25);
+  fill(255);
+  ellipse(-45, -62, 10, 10);
+  fill(0);
+  ellipse(45, -60, 10, 10);
+  ellipse(-65, -5, 70, 40);
+  ellipse(65, -5, 70, 40);
+
+}

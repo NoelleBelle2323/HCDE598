@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Blue Light</title>
+        <link href="../projectView.css" type="text/css" rel="stylesheet" />
+        <script src="../libraries-p5/p5.js"></script>
+        <script src="blue-light.js"></script>
+    </head>
+    <body>
+        <h1>Blue Light</h1>
+        <pre>
+          <code>
+            var bkgrnd = 'magenta'
+            var strkebod = (2)
+            var eyeswhite = 'white'
+            var eyesblack = 'black'
+            var eyesblue = ('blue');
+            var bodycolor = ('turquoise');
+            //var x = 200
+            //var y = 135
+            //var scale = 190
+
+            function setup() {
+              createCanvas(600, 600);
+              background(bkgrnd);
+            }
+
+            function draw() {}
+
+            //portrait of  mr bluelight
+            //original character coordinates above each new line of code
+            function drawbluelight(x, y, scale) {
+              //x=200, y=135, scale=200
+              
+              // head
+              fill(bodycolor);
+              //ellipse(200, 135, 190);
+              ellipse(x, y, scale*1.25, scale);
+
+              //neck
+              //rect(170, 220, 55, 55);
+              fill(bodycolor)
+              rect(x * 0.85, y * 1.35, scale/2.5, scale/2.5);
+
+              // eyes
+              fill(eyeswhite); // eyes white outside
+                 //ellipse(170, 110, 45, 80);
+            ellipse(x-(scale*0.2), y/1.2, scale/4.2, scale/2.4);
+                  //ellipse(220, 110, 45, 80);
+            ellipse(x+(scale*0.2), y/1.2, scale/4.2, scale/2.4);
+
+              fill(eyesblue); // eyes blue 
+                //ellipse(165, 120, 30, 50);
+                //ellipse(217, 120, 30, 50);
+              ellipse(x-(scale*0.2), y/1.2, scale/6.33, scale/3.8);
+              ellipse(x+(scale*0.2), y/1.2, scale/6.33, scale/3.8);
+
+              fill(eyesblack); // eyes black
+                //ellipse(165, 125, 18, 35);
+                //ellipse(215, 125, 18, 35);
+              ellipse(x-(scale/4.5), y /1.2, scale /9, scale/5);
+              ellipse(x+(scale/4.5), y / 1.2, scale /9, scale/5);
+              
+             fill(eyeswhite); // eyes white inside
+                //ellipse(160, 126, 10, 10);
+                //ellipse(210, 126, 10, 10);
+              ellipse(x-(scale/4.25), y-(scale/6.5), scale/19, scale/19);
+              ellipse(x+(scale/4.25), y-(scale/6.5), scale/19, scale/19);
+               
+              // eyebrows
+                //line(140, 73, 170, 62);
+                //line(250, 73, 220, 62);  
+            }
+
+            // clicking mouse activates random sizes
+            function mousePressed() {
+              var size = random(100, 250);
+              drawbluelight(mouseX, mouseY, size);
+
+
+            }
+
+          </code>
+        </pre>
+        
+    </body>
+       
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Parachute</title>
+        <link href="../projectView.css" type="text/css" rel="stylesheet" />
+        <script src="../libraries-p5/p5.js"></script>
+        <script src="parachute.js"></script>
+    </head>
+    <body>
+        <h1>Parachute</h1>
+        <pre>
+          <code>
+            function setup() {
+                frameRate(30);
+                createCanvas(800, 600);
+                background("#546C85");
+
+            }
+
+            function balloon(centerX, centerY, bcolor, ecolor, rcolor) {
+                var bsize = random(60, 150);
+                // circle
+                fill(bcolor)
+                stroke("#97CFE9")
+                strokeWeight(4);
+                ellipse(centerX, centerY, bsize);
+
+                //Centre Ellipse
+                fill(ecolor)
+                stroke("#97CFE9")
+                strokeWeight(4);
+                ellipse(centerX, centerY, bsize / 2, bsize);
+
+                //Line top Left to right
+                strokeWeight(4);
+                stroke("#97CFE9");
+                var linex = centerX - bsize * .352
+                var liney = centerY + bsize * .352
+                var llen = bsize * 52 / 105
+                line(linex, liney, linex + llen, liney + llen)
+
+
+
+                //Line top right to left
+                strokeWeight(4);
+                stroke("#97CFE9");
+                var linex1 = centerX + bsize * .352;
+                var liney1 = centerY + bsize * .352
+                line(linex1, liney1, linex1 - llen, liney1 + llen)
+
+
+                //rectangle base
+                stroke("#97CFE9")
+                fill(rcolor)
+                strokeWeight(4);
+                rect(linex1 - llen, liney1 + llen, bsize * 30 / 105, bsize * 25 / 105, 7)
+
+
+                //Line rectangle
+                strokeWeight(8);
+                stroke("#97CFE9");
+                line(linex1 - bsize * 52 / 105, liney1 + bsize * 55 / 105, linex + bsize * 52 / 105, liney + bsize * 55 / 105)
+
+            }
+
+            function mouseClicked() {
+                var size = random(50, width / 5);
+                balloon(mouseX, mouseY, "#EB3F65", "#7666E2", "#EB3F3F");
+            } 
+
+          </code>
+        </pre>
+        
+    </body>
+       
+</html>
