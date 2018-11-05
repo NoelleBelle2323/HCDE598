@@ -1,0 +1,48 @@
+//constants for the position of the circles
+const canvassize = 600
+const targetposition = canvassize / 2
+
+//constants for alternating colors
+const OddColor = "white"
+const EvenColor = "red"
+
+
+function setup() {
+
+  //sets up canvas
+  createCanvas(canvassize * 2, canvassize);
+  background(100);
+  noStroke();
+
+  //for loop dictating seven circles to be created
+  for (i = 1; i <= 7; i++) {
+
+    //color changing depending to red or white depending on odd or even i value.
+    if (isOdd(i)) {
+      fill(OddColor);
+    } else {
+      fill(EvenColor);
+    }
+
+    //variables for circles growing by a value of 20 and moving horizontally.
+    var targetsize = i * 20;
+    var targetmove = i * targetsize;
+    //draw the circles
+    ellipse(targetmove, targetposition, targetsize, targetsize);
+  }
+
+
+}
+
+function draw() {}
+
+//function for determing odd or even
+function isOdd(n) {
+  remainder = n % 2;
+  if (remainder == 1) {
+    return true;
+  } else {
+
+    return false;
+  }
+}

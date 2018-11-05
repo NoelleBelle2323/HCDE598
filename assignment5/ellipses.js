@@ -1,0 +1,78 @@
+/* Rachel Kangas
+A5: Repeated Shapes
+HCDE598C
+rachelk3@uw.edu
+
+This program uses an even-odd conditional function and nested for-loops to draw repeated ellipses of different colors
+across and down an x-y grid. The color of the ellipse changes based on whether the values of its position coordinate are even or odd.
+*/
+
+// set up global constants and variables
+
+// canvas sizing
+const canvaswidth = 600;
+const canvasheight = 400;
+
+// ellipse positioning
+var x_origin = 10;
+var y_origin = 20;
+
+// ellipse sizing
+var ellipsewidth = 14; // pick an even number for x-dimension, which will be used in even-odd conditional
+var ellipseheight = 15; // pick an odd number for y-dimension, which will be used in even-odd conditional
+
+
+function setup() {
+
+  // set up necessary color variables inside setup function, since using color function
+
+  var bg_color = color(2, 85, 130); // define specified color of blue for background
+  var mustard = color(183, 144, 3); // define specified color of yellow for ellipses
+  var ivory = color(255, 251, 237); // define specified off-white color for ellipses
+
+  createCanvas(canvaswidth, canvasheight);
+  background(bg_color);
+
+  // write function that determines whether or not an integer is odd: isOdd(n)
+  // as shown in class, this function uses the "modulus" operator, which returns the remainder after dividing the integer by 2.
+  // If the remainder of the given integer (n) is odd, the circle fill and border should be mustard-colored.
+  // If the remainder of the given integer (n) is even, the circle fill and border should be ivory-colored.
+  // the function prints 'true' or  'false' in the console to verify the odd or even state of the remainder of the given n/2.
+  // isOdd(n) is written in the setup function so that it can call color variables.
+
+  function isOdd(n) {
+
+    var remainder = n % 2;
+    if (remainder == 1) {
+      fill(mustard);
+      stroke(mustard);
+      print('true');
+    } else {
+      fill(ivory);
+      stroke(ivory);
+      print('false');
+    }
+  }
+
+  // inspiration from "Getting Started with p5.js", example 4-13, with nested for loops
+  // this for loop uses the x and y position (given starting values of x = 10 and y = 20) of the ellipse and increments
+  // the previous x and y value by the specified ellipse width and heights, until the canvas height and width are reached.
+  // the function isOdd(n) is called for both n = x and n = y, which changes the color of the ellipse based on whether the values of its (x+y, y) is even or odd.
+  // the ellipses are moved to the right by adding the y-coordinate to the x-coordinate, and moved down by the changing y coordinate.
+  for (var y = y_origin; y <= height; y = y + ellipseheight) {
+    for (var x = x_origin; x <= width; x = x + ellipsewidth) {
+      isOdd(x);
+      isOdd(y);
+      ellipse(x + y, y, ellipsewidth, ellipseheight);
+
+    }
+
+  }
+
+} // end of the setup function
+
+
+/* the draw function is not used in this program. every function is executed within
+the setup function. */
+
+function draw() {}

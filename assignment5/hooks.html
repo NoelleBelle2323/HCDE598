@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Hooks</title>
+        <link href="../projectView.css" type="text/css" rel="stylesheet" />
+        <script src="../libraries-p5/p5.js"></script>
+        <script src="hooks.js"></script>
+    </head>
+    <body>
+        <h1>Hooks</h1>
+        <pre>
+          <code>
+            /*
+            David Mondello
+            HCDE 598: Intro to Programming
+            11/4/18
+            */
+
+            ///////////////////////
+            ////A5-Repeated Shapes
+            //////////////////////
+
+
+            //global origin variables
+            var x = 200;
+            var y = 50;
+
+
+            function setup() {
+              createCanvas(600, 600);
+
+            }
+
+            function draw() {
+              background(190, 83, 28); //potter's clay color
+
+              /*
+              --This function creates a pair of hooks connected by a line segment. 
+              --The leftmost hook is both taller and wider than the rightmost hook.
+              --The leftmost hook is comprised of 5 line segments, while the rightmost hook is comprised of 3 line segments.
+              --Each of the local variables below take their names from the portion of the shape in which the coordinates first appear. 
+              */
+
+              function makeHooks() {
+
+                //variables for coordinates in the right hook
+                var stemY2 = y + 70;
+                var crossbarX1 = x + 5;
+                var crossbarX2 = x - 50;
+                var nubX = x - 45;
+                var nubY2 = y + 35;
+
+                //variable for connector coordinate
+                var connectX2 = x - 90;
+
+                //variables for coordinates in the left hook
+                var LstemX = x - 85;
+                var LstemY = y - 25;
+                var LcrossbarX1 = x - 80;
+                var LcrossbarY = y - 20;
+                var LcrossbarX2 = x - 175;
+                var longNubY = y + 50;
+                var lowerCrossbarX1 = x - 180;
+                var lowerCrossbarX2 = x - 128;
+                var positiveNubX = x - 133;
+                var positiveNubY = y + 15;
+
+                //line segments forming the right hook
+                strokeWeight(10);
+                strokeCap(SQUARE)
+                line(x, y, x, stemY2); //stem
+                line(crossbarX1, y, crossbarX2, y); //crossbar
+                line(nubX, y, nubX, nubY2); //nub
+
+
+                line(crossbarX1, stemY2, connectX2, stemY2); //segment connecting two hooks
+
+
+                //line segments forming the left hook
+                line(LstemX, stemY2, LstemX, LstemY); //stem
+                line(LcrossbarX1, LcrossbarY, LcrossbarX2, LcrossbarY); //crossbar
+                line(LcrossbarX2, LstemY, LcrossbarX2, longNubY); //long nub
+                line(lowerCrossbarX1, longNubY, lowerCrossbarX2, longNubY); //lower crossbar
+                line(positiveNubX, longNubY, positiveNubX, positiveNubY); //positive nub
+              }
+
+
+              //Below is a for loop containg both a nested for loop as well as an if statment.
+
+
+              for (var x = 48; x < 800; x += 110) { //replicates the orginal shape across the x axis, forming a single row of shapes
+                for (var y = 0; y < 800; y += 120) { //replicates the row of shapes genereated by the first for loop at different locations along the y axis;
+                  if (y % 16 == 0) { //varies the stroke color of the shapes  
+                    stroke("white"); //If the origin y coordinate is divisible by 16, the entire row is white
+                  } else {
+                      stroke("black"); //If the origin y coordinate is not divisble by 16,the stroke color for the row is black.
+                  }
+                  if (x == 378 && y == 240) {//highlights the original shape when both x and y are at given values
+                    stroke("gold")
+                }
+                  makeHooks();
+                }
+              }
+}
+
+          </code>
+        </pre>
+        
+    </body>
+       
+</html>

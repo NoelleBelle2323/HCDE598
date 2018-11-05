@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Stars</title>
+        <link href="../projectView.css" type="text/css" rel="stylesheet" />
+        <script src="../libraries-p5/p5.js"></script>
+        <script src="stars.js"></script>
+    </head>
+    <body>
+        <h1>Stars</h1>
+        <pre>
+          <code>
+            //where the center of the star starts (top left)
+            const xOrigin = 50
+            const yOrigin = 50
+
+            //the distance between the center of each star
+            const segmentSize = 50
+
+            //how many stars are drawn in each row / column
+            const starTotal = 7
+
+            //rgb starting color for Odd is Indigo rgb(75, 0, 130)
+            const redOdd = 75
+            const greenOdd = 0
+            const blueOdd = 130
+
+            //rgb starting color for Even is Forest Green rgb(34, 139, 24)
+            const redEven = 34
+            const greenEven = 139
+            const blueEven = 24
+
+            function setup() {
+              createCanvas(400, 400);
+              background('black');
+
+              //Draw repeated stars horizontally by the segment size
+              //and stop when reaching total stars
+              for (i = 0; i < starTotal; i++) {
+                var xStart = xOrigin + i * segmentSize
+
+                //Draw repeated stars vertically by the segment size
+                for (j = 0; j < starTotal; j++) {
+                  var yStart = yOrigin + j * segmentSize
+
+                  //Alternate the colors if i is Odd or Even
+                  if (isOdd(i)) {
+
+                    /* Odd stars start with the rgb(75, 0, 130) and I want to slowly add
+                    more red and green vertically (using j) until both values reach 255. 
+                    So as j increases, multiply by 255 over the number of stars and add 
+                    this to the red and green values, which makes the last row of stars
+                    have a peachy color*/
+                    fill(redOdd + j * 255 / starTotal, greenOdd + j * 255 / starTotal, blueOdd);
+
+                    /* Even stars start with the rgb(34, 139, 24). Similar method to the
+                    Odd color values, but I'm adding to the blue value as j increases
+                    until the last row has a bluish color. */
+                  } else {
+                    fill(redEven, greenEven, blueEven + j * 255 / starTotal);
+                  }
+
+                  drawStar(xStart, yStart, 1.5); // last number makes star 1.5 times bigger
+                }
+              }
+
+            }
+
+            function draw() {}
+
+            // Returns true when even, and false when odd
+            function isOdd(n) {
+              //% gives remainder when divided by 2
+              remainder = n % 2;
+              if (remainder == 1) {
+                return true;
+              } else {
+                return false;
+              }
+            }
+
+            /*Copied this star from one of my previous projects.
+            I drew out the star on grided paper where (x, y)
+            is the center of the star*/
+
+            function drawStar(x, y, myScale) {
+              noStroke();
+              beginShape();
+              vertex(x - 11 * myScale, y - 3 * myScale); //starts at top left pt clockwise
+              vertex(x - 4 * myScale, y - 4 * myScale);
+              vertex(x, y - 10 * myScale);
+              vertex(x + 4 * myScale, y - 4 * myScale);
+              vertex(x + 11 * myScale, y - 3 * myScale);
+              vertex(x + 6 * myScale, y + 2 * myScale);
+              vertex(x + 7 * myScale, y + 9 * myScale);
+              vertex(x, y + 6 * myScale);
+              vertex(x - 7 * myScale, y + 9 * myScale);
+              vertex(x - 6 * myScale, y + 2 * myScale);
+              endShape();
+            }
+
+          </code>
+        </pre>
+        
+    </body>
+       
+</html>

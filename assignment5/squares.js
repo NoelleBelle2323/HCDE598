@@ -1,0 +1,74 @@
+//Holly Howson-Watt
+//Assignment #5 - Loops
+
+// set constant size of canvas
+const CANVAS_WIDTH = 500;
+const CANVAS_HEIGHT = 500;
+
+// set the upper left corner where squares start
+const X_ORIGIN = 90;
+const Y_ORIGIN = 90;
+
+// background constant
+const BG_COLOR = 'black';
+
+//border constant
+const LINE_COLOR = 'white';
+
+//constant colors in program
+const SQ_COLOR1 = '#BF3FAE';
+const SQ_COLOR2 = '#723FBF';
+
+// size/parameters for rectangles
+const SQ_SIZE = 50;
+const BORDER_WIDTH = 2;
+
+// draw number and distance of rectangles
+const SQ_NUMBER = 4;
+const SQ_SPACE = 90;
+
+function setup() {
+  // draw canvas
+  createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
+  background(BG_COLOR);
+  stroke(LINE_COLOR);
+
+  //draw rectangles alternating rows purple/pink
+  for (h = 0; h < SQ_NUMBER; h++) {
+    // draw rectangle as purple if remainder = odd
+    if (isOdd(h)) {
+      fill(SQ_COLOR1);
+    } else {
+      fill(SQ_COLOR2);
+    }
+
+    for (i = 0; i < SQ_NUMBER; i++) {
+      // draw rectangle as pink if remainder = even
+      if (isOdd(i)) {
+        fill(SQ_COLOR2);
+      } else {
+        fill(SQ_COLOR1);
+      }
+
+      // calculate the x and y coordinates of rectangles
+      var xCorner = X_ORIGIN + h * SQ_SPACE
+      var yCorner = Y_ORIGIN + i * SQ_SPACE
+
+      // draw line of rectangles
+      rect(xCorner, yCorner, SQ_SIZE, SQ_SIZE);
+    }
+  }
+}
+
+// returns true if the number is odd + false if the number is even
+function isOdd(h) {
+  // divide by two to determine remainder
+  remainder = h % 2;
+  if (remainder == 1) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+function draw() {}
