@@ -1,0 +1,59 @@
+//Bouncing Dots
+//jcarr88@uw.edu 
+
+//Various variables and arrays for dot location(CoordX/Y),
+//dot speed (speedX/Y) and dot direction change (directionX/Y)
+
+var radius = 10; // Dot size is 20
+var coordX = [15, 35, 25, 30, 100, 20, 30, 25, 150, 15];
+var coordY = [20, 40, 60, 80, 100, 120, 140, 160, 180, 10];
+var speedX = [1, 2, 3, 5, 1, 2, 3, 1, 3, 5];
+var speedY = [1, 2, 3, 0.5, 1, 2, 3, 0.5, 0.5, 0.5];
+var directionX = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+var directionY = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+
+
+function setup() {
+	createCanvas(200, 200);
+}
+
+function draw() {
+
+	background('pink')
+	
+	// for loop to access all 6 arrays
+	for (var i = 0; i < 9; i++) {
+		
+		// Draws dots at coordinates from x/y arrays
+    drawDot(coordX[i],coordY[i],size);
+
+		// Moves dots with speed array and gets them to reverse with 
+		//conditional statement and direction array
+
+		coordX[i] += speedX[i] * directionX[i]; //increases value of x
+
+		if ((coordX[i] > width - radius) || (coordX[i] < radius)) {
+			directionX[i] = -directionX[i]; // flips direction
+		}
+
+		coordY[i] += speedY[i] * directionY[i]; //increases value of y
+
+		if ((coordY[i] > height - radius) || (coordY[i] < radius)) {
+
+			directionY[i] = -directionY[i]; // flips direction 
+		}
+
+
+		print("coordX" + coordX + "coordY" + coordY);
+
+	}
+
+
+		//function
+		function drawDot(coordX, coordY, size){
+			noStroke(0);
+			ellipseMode(RADIUS);
+			fill('grey');
+			ellipse(coordX, coordY, radius, radius);
+		}
+}

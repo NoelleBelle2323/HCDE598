@@ -1,0 +1,198 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Asteroid Dissolve</title>
+        <link href="../projectView.css" type="text/css" rel="stylesheet" />
+        <script src="../libraries-p5/p5.js"></script>
+        <script src="asteroid-dissolve.js"></script>
+    </head>
+    <body>
+        <h1>Asteroid Dissolve</h1>
+        <pre>
+          <code>
+            /*
+            I used the previous project to "dissolve" 
+            the moving shapes. Purely accidental at first
+            but I liked the effxt and adjusted it to what is happening now.
+            I got a lot of help from Molly O. to move the 
+            "astroids" from using her code below as well.
+            The constant redrawing of the background 
+            does slow down the animation.  I also think I resolved the 
+            redundant/unnecessary code I hade in the previous program.
+            Adding it to this program exposed some of those flaws.
+            */
+
+
+            //canvas width and height constants
+            const CONST_WIDTH = 600;
+            const CONST_HEIGHT = 400;
+
+            //some colors constants
+            const COLOR1 = 255;
+            const COLOR2 = 255;
+
+            //background color constants
+            const BG_COLOR = 0;
+
+            const STROKE_WEIGHT = 0;
+
+            //x and y coordinates for the ellipse
+            const ELLIPSE_X = 0;
+            const ELLIPSE_Y = 0;
+
+            //circle size dimensions Width (W) height (H)
+            const ELLIPSE_SIZE_H = 5;
+            const ELLIPSE_SIZE_W = 5;
+            //how many circles to draw per screen 
+            //changing this variable will give the appearence
+            //of the animation speeding up
+            const CIRCLES_TO_DRAW = 400
+
+
+
+
+
+            //lots of help from Molly Olsen!!!  THANK YOU MOLLY! 
+            //this is the core of her code
+            //astroid parameters
+            const asteroidMinX = 40;
+            const asteroidMaxX = 40;
+            const asteroidMinY = 40;
+            const asteroidMaxY = 40;
+
+            //how many astroids to bounce min 1, max 6
+            const asteroid_to_draw = 5
+
+            //initial placement of astroids in array. 
+            //six total possibilities; just random values
+            //wanted to make this infinit but not sure how to create
+            //a range of random possibilities here?
+            var asteroidXArray = [150, 150, 150, 150, 150];
+            var asteroidYArray = [300, 300, 300, 300, 300];
+
+            //speed variations arrray for each astroid
+            var speedXArray = [-2, -3, -6, -2, 2];
+            var speedYArray = [2, 3, 6, -2, 2];
+
+            //colors for asteroids
+            var colorArray = ['cyan', 'yellow', 'magenta', 0, 255];
+
+
+
+            function setup() {
+              createCanvas(CONST_WIDTH, CONST_HEIGHT);
+              //draws background color according to constants above
+              background(BG_COLOR);
+              //drawRandomCircle();
+
+            }
+
+            function draw() {
+              drawRandomCircle();
+
+
+              //calls functions to draw all astroids and 
+              //make themm bounce
+              for (i = 0; i < asteroid_to_draw; i++) {
+                asteroidField(i, i, i);
+                bounceAsteroid(i, i, i, i);
+              }
+            }
+
+            //function to draw multiple astroids
+            function asteroidField(xArray, yArray, rockColor) {
+
+              //varibles to call array values
+              var asteroidX = asteroidXArray[xArray]; //x placement
+              var asteroidY = asteroidYArray[yArray]; //y placement
+              var fillColor = colorArray[rockColor]; //color
+
+              //adds color to each astroid and places them on canvas
+              fill(fillColor);
+              asteroid(asteroidX, asteroidY);
+
+            }
+
+            //function to bounce asteroid and control speed
+            function bounceAsteroid(xArray, yArray, xSpeed, ySpeed) {
+
+              //varibles to call array values
+              var asteroidX = asteroidXArray[xArray];
+              var asteroidY = asteroidYArray[yArray];
+              var moveXSpeed = speedXArray[xSpeed];
+              var moveYSpeed = speedYArray[ySpeed];
+
+              //controls speed and direction
+              asteroidX = asteroidX + moveXSpeed;
+              asteroidY = asteroidY + moveYSpeed;
+
+              //calls starting positions
+              asteroidXArray[xArray] = asteroidX;
+              asteroidYArray[yArray] = asteroidY;
+
+
+              //bounce logic
+              if (asteroidX < asteroidMinX || asteroidX > width - asteroidMaxX) {
+                moveXSpeed = moveXSpeed * (-1);
+
+
+              } else if (asteroidY < asteroidMinY || asteroidY > height - asteroidMaxY) {
+                moveYSpeed = moveYSpeed * (-1);
+              }
+
+              //speed for asteroid
+              speedXArray[xSpeed] = moveXSpeed;
+              speedYArray[ySpeed] = moveYSpeed;
+
+            }
+
+
+            //function that draws the astroid shape
+            function asteroid(x, y) {
+              noStroke();
+              beginShape();
+              vertex(x - 40, y - 20);
+              vertex(x + 20, y - 40);
+              vertex(x + 40, y - 5);
+              vertex(x + 5, y + 40);
+              vertex(x - 10, y + 35);
+              vertex(x - 30, y + 20);
+              vertex(x - 40, y - 20);
+              endShape();
+            }
+
+            //function that draws the circles to create dissolve effect
+            function drawRandomCircle() {
+
+              //loop that draws circles by comparing i and CIRCLES_TO_DRAW
+              for (i = 0; i < CIRCLES_TO_DRAW; i++) {
+
+                //calculates the x and y coordinates for
+                //each circle drawn using constants 
+                var circleX = random(width);
+                var circleY = random(height);
+
+                //random color variables for ellipse and stroke color
+                var randomColor1 = random(COLOR1);
+                var randomColor2 = random(COLOR2);
+
+
+                //stroke color and weight for circle based on constants
+                stroke(randomColor2);
+                strokeWeight(STROKE_WEIGHT);
+
+                //fills circle with random color based on constants
+                //changed the order from the stroke so there would be
+                //different colors for each ellipse and stroke
+                fill(randomColor1);
+
+                //circle placement and size
+                ellipse(circleX, circleY, ELLIPSE_SIZE_H, ELLIPSE_SIZE_W);
+              }
+            }
+          </code>
+        </pre>
+        
+    </body>
+       
+</html>

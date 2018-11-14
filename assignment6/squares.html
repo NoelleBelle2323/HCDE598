@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Squares</title>
+        <link href="../projectView.css" type="text/css" rel="stylesheet" />
+        <script src="../libraries-p5/p5.js"></script>
+        <script src="squares.js"></script>
+    </head>
+    <body>
+        <h1>Squares</h1>
+        <pre>
+          <code>
+            // File: Bouncing Squares
+            // Author: Angel Vuong
+            // Date: 11/11/18
+            // Class: 598 Intro to Programming
+            // Email: advuong@uw.edu
+            // Description: This program draws bouncing rectangles. 
+            // This code is adapted from Elena Agapie and Sam Kolovson
+
+            // constants that set up the canvas size and color
+            const CANVAS_WIDTH = 800;
+            const CANVAS_HEIGHT = 800;
+            const BACKGROUND_COLOR = '#7698B3';
+
+            // set constant for square size
+            const SHAPE_SIZE = 100;
+
+
+            // Arrays to hold our squares 
+            //var squares = [];
+            var squareXs = [];
+            var squareYs = [];
+
+
+            // Arrays that set the speed of movement of the shapes
+            // var squareSpeeds = [];
+            var squareXSpeeds = [];
+            var squareYSpeeds = [];
+
+            // Array to hold possible shape speeds
+            var speeds = [-5, -4, -3, -2, -1, 1, 2, 3, 4, 5];
+
+
+            // Function that sets up the canvas size
+            function setup() {
+              createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
+
+              // Initialize random colors for squares
+              rectColor = randomColor();
+
+              // Initialize squares x and y coords
+              for (var i = 0; i < 10; i++) {
+                // randomly assign x and y coordinates betweeen 100 and 500
+                squareXs[i] = round(random(100, 500));
+                squareYs[i] = round(random(100, 500));
+
+                // randomly assign x and y speeds from speeds array
+                squareXSpeeds[i] = random(speeds);
+                squareYSpeeds[i] = random(speeds);
+              }
+
+            }
+
+
+            // Function that sets up the background color
+            // Background color is executed until the program stops 
+            function draw() {
+              background(BACKGROUND_COLOR);
+
+              // Draw and move shapes
+              drawShapes(squareXs, squareYs);
+              moveShapes(squareXs, squareYs, squareXSpeeds, squareYSpeeds);
+            }
+
+
+            // Function that draws the shapes at x,y position
+            // Loops through the shapes array until program stops
+
+            function drawShapes(shapeXs, shapeYs) {
+              for (var s = 0; s < shapeXs.length; s++) {
+
+                var shapeX = shapeXs[s];
+                var shapeY = shapeYs[s];
+
+                drawRect(shapeX, shapeY, SHAPE_SIZE, rectColor);
+
+              }
+            }
+
+            // Function that draws and moves the shapes array
+            function moveShapes(shapeXs, shapeYs, shapeXSpeeds, shapeYSpeeds) {
+              // Loop through shapes and shapesSpeeds
+              for (var s = 0; s < shapeXs.length; s++) {
+
+                // Get shapeX and shapeY coordinates
+                var shapeX = shapeXs[s];
+                var shapeY = shapeYs[s];
+
+                // Get shapeX and shapeY speeds
+                var shapeXSpeed = shapeXSpeeds[s];
+                var shapeYSpeed = shapeYSpeeds[s];
+
+                // Checks if shape is outside canvas
+                if (shapeX < 0 || shapeX > CANVAS_WIDTH - SHAPE_SIZE) {
+                  // Change X direction
+                  shapeXSpeed *= -1;
+                } else if (shapeY < 0 || shapeY > CANVAS_HEIGHT - SHAPE_SIZE) {
+                  // Change Y direction
+                  shapeYSpeed *= -1;
+                } else if (shapeX < 0 || shapeY < 0 || shapeX > CANVAS_WIDTH || shapeY > CANVAS_HEIGHT) {
+                  // if anything goes wrong just reset coords
+                  shapeX = CANVAS_WIDTH / 2;
+                  shapeY = CANVAS_HEIGHT / 2;
+                }
+
+                // Move shape
+                shapeX += shapeXSpeed;
+                shapeY += shapeYSpeed;
+
+                // Update arrays
+                shapeXs[s] = shapeX;
+                shapeYs[s] = shapeY;
+                shapeXSpeeds[s] = shapeXSpeed;
+                shapeYSpeeds[s] = shapeYSpeed;
+
+              }
+            }
+
+            // Function to draw a square at cX, cY with
+            // size = cSize and color = cColor.
+
+            function drawRect(cX, cY, cSize, cColor) {
+              rectMode(CORNER);
+              noStroke();
+              fill(cColor);
+              rect(cX, cY, cSize, cSize);
+            }
+
+
+            // This funtion that returns a random color.
+
+            function randomColor() {
+              var r = random(0, 255);
+              var b = random(0, 255);
+              var g = random(0, 255);
+
+              return color(r, b, g);
+            }
+
+          </code>
+        </pre>
+        
+    </body>
+       
+</html>
