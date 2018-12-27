@@ -1,0 +1,232 @@
+/*
+File: CurrentArrow
+Author: Kim Wickens
+Class: HCDE 598C - AUT18
+Assignment: Final Project
+Date: 12/10/18
+Email: kwickens@uw.edu
+Description:
+The concept for this animation is to display information for one day's worth of tidal 
+current information for a specific tidal current station (PUG1702). The data for the current 
+information for was obtained from the National Oceanic and Atmospheric Administration
+(NOAA). This animation traverses through two arrays---one for velocity and one for the
+time at which the velocity occurs. The velocity array values are used to draw text that
+displays the velocity and to scale the base size of the arrow so the arrow size is
+proportional to the velocity. An image of the NOAA chart is used for the background.
+The event text and the arrow's direction, angle, and color at any time are dependent on 
+whether the current value is negative (ebb) or positive (flood). The time array values are 
+used to draw text that displays the time for each velocity value. The event text is drawn 
+based on the value of the velocity.
+*/
+
+var img; //declare variable for an image
+
+//color variables
+var arrowColor; //arrow color determined by values in velocity array
+
+//start position variables
+var startX = 0; //starting X position
+var startY = 0; //starting Y position
+var translateX = 530; //starting X position for arrow
+var translateY = 470; //starting Y position for arrow
+
+//canvas size variables
+var canvasX = 800; //canvas width
+var canvasY = 800; //canvas length
+
+//variables for velocity
+var velocity = [4.0, 0.0, -1.8, 0.0, 2.0, 0.0, -3.1, 0.0]; //array values for speed of current
+var floodAngle = 357 - 270 - 180; //angle of arrow when velocity is positive
+var ebbAngle = 270 - 190 - 180; //angle of arrow when velocity is negative
+
+//variables for arrow sizes
+var arrowLength; //length of arrow shaft
+var arrowHeadPoint; //length of arrow shaft
+var arrowRectWidth; //width of arrow shaft
+var arrowHeadWidth; //distance that arrowhead protrudes perpendicular from shaft
+
+//variables for velocity text
+var velocityTextSize = 30; //text size for velocity text
+var velocityTextX = translateX + 20; //x position for velocity text
+var velocityTextY = translateY; //y position for velocity text
+var velocityTextFill = 'black'; //color for velocity text
+
+//variables for date text
+var date = "11/06/18"; //date of current velocity forecasts
+var dateTextSize = 20; //text size for date text
+var dateTextX = velocityTextX; //x position for date text
+var dateTextY = velocityTextY + dateTextSize; //y position for date text
+var dateTextFill = 'black'; //color for date text
+
+//variables for time text
+var timeTextSize = dateTextSize; //text size for time text
+var time = ["1:06", "4:48", "6:42", "10:24", "12:42", "17:24", "19:54", "23:18"]; //array for times of velocities in velocity array
+var timeTextX = velocityTextX; //x position for time text
+var timeTextY = dateTextY + dateTextSize; //y position for time text
+var timeTextFill = 'black'; //color for time text
+
+//variables for event text
+var currentEvent; //flood, slack, or ebb based on velocity value
+var currentEventTextSize = dateTextSize; //text size for event text
+var currentEventTextX = velocityTextX; //x position for event text
+var currentEventTextY = timeTextY + timeTextSize; //y position for event text
+var currentEventTextFill; //undeclared variable for text color determined in drawCurrentEventText function
+
+//variables for the current station text
+var station = "Rosario Strait (PUG1702)"; //station name and number
+var stationTextX = canvasX / 2; //x position for station text
+var stationTextY = canvasY - 200; //y position for station text
+var stationTextSize = 30; //station text size
+var stationTextFill = 'black'; //station text color
+
+// variable for traversing array
+var increaseThroughArray = true; //initializes true to start traverse through array
+var index = 0; //variable to initialize index size
+
+//function to preload image
+function preload() {
+	img = loadImage("Chart-SJI.png"); //load background image of nautical chart
+}
+
+function setup() {
+	createCanvas(canvasX, canvasY); //declare canvas length and width
+}
+
+function draw() {
+	image(img, 0, stationTextSize + 10, img.width * 1.5, img.height * 1.5); //draw background image below station text
+
+	frameRate(0.75); //declare speed of screen redraw
+
+	//draw all elements	
+	arrowColorTest(); //calls function to determine arrow color
+	drawArrow(); //draws the arrow based on values in velocity array
+	drawStationText(stationTextX, stationTextY, stationTextSize); //draw text for station name & number
+	drawVelocityText(velocityTextX, velocityTextY, velocityTextSize); //draw text for values in velocity array
+	drawTimeText(timeTextX, timeTextY, timeTextSize); //draw text for values in time array
+	drawDateText(dateTextX, dateTextY, dateTextSize); //draw date
+	drawCurrentEventText(currentEvent, currentEventTextX, currentEventTextY); //draw event (flood, ebb, slack)
+
+	//print for debugging
+	print(station, stationTextX, stationTextY, stationTextSize);
+
+
+	//IF code provided by Melissa Birchfield
+	//if statement traverses through the velocity array
+	//when increaseThroughArray is true, the index variable is increased by 1
+	//until the index equals the length of the velocity array. When the index
+	//equals the array length, the index value is set back to 0 to restart the
+	//traverse through the array. The traverse restarts infinitely.
+	if (increaseThroughArray == true) {
+		index++; //increments index by 1
+		if (index == velocity.length) { // tests for last value in array
+			index = 0; //restarts traverse through array
+		}
+	}
+}
+
+
+// set arrow color based on currentVelocity
+function arrowColorTest() {
+	var velocityColor = velocity[index]; //variable that traverses velocity array
+	if (velocityColor < 0) { //test velocity array value for negative
+		arrowColor = 'red'; //negative values (ebb) are red
+	} else if (velocityColor > 0) { //test velocity array value for positive
+		arrowColor = ('green'); //positive values (flood) are green
+		print("arrowColorTest" + "=" + arrowColor);
+		print("velocityColor in arrowColorTest" + "=" + velocityColor);
+	}
+}
+
+
+//function to draw arrow based on current velocity and direction
+function drawArrow() {
+	var currentVelocity = velocity[index];
+	arrowLength = 20 * currentVelocity; //length of arrow
+	arrowHeadPoint = arrowLength / 3; //length of arrowhead
+	arrowRectWidth = arrowLength / 4; //width of arrow shaft
+	arrowHeadWidth = arrowRectWidth / 3; //distance that arrowhead protrudes perpendic
+	fill(arrowColor); //color for shaft and arrowhead
+	noStroke(); //do not draw outline
+	angleMode(DEGREES); //change angle unit of measure to degree
+	push(); //save copy of coordinate system
+	translate(translateX, translateY); //shift starting coordinates of arrow for rotating	
+	rotate(ebbAngle); //rotate arrow based on angle of current flow (ebbAngle)
+	//draw componenets of arrow
+	rect(startX - arrowLength / 2, startY - arrowRectWidth / 2, arrowLength + arrowLength / 2 - arrowHeadPoint, arrowRectWidth); //draw shaft
+	triangle(startX + arrowLength - arrowHeadPoint, startY - arrowHeadWidth - arrowRectWidth / 2, startX + arrowLength - arrowHeadPoint, startY + arrowHeadWidth + arrowRectWidth / 2, startX + arrowLength, startY); //draws arrowhead
+	pop(); //restore copy of coordinate system
+
+	//print for debugging
+	print("startX in drawArrow" + "=" + startX);
+	print("startY in drawArrow" + "=" + startY);
+}
+
+
+//function to draw text that reflects velocity of current
+function drawVelocityText(velocityTextX, velocityTextY, velocityTextSize) {
+	var velocityText = velocity[index]; //declare variable that traverses velocity array
+	textSize(velocityTextSize); //text size
+	fill(velocityTextFill); //text color
+	noStroke(); //do not draw outline
+	textAlign(LEFT); //left align text
+	text(velocityText + " " + "kt", velocityTextX, velocityTextY); //draw velocity text
+}
+
+
+//function to draw text that reflects time of current
+function drawTimeText(timeTextX, timeTextY, timeTextSize) {
+	var currentTime = time[index]; //declare variable that traverses time array
+	textSize(timeTextSize); //text size
+	fill(timeTextFill); //text color
+	noStroke(); //do not draw outline
+	textAlign(LEFT); //left align text
+	text(time[index], timeTextX, timeTextY); //draw time text from array
+}
+
+
+//function to draw text that reflects date of current
+function drawDateText(dateTextX, dateTextY, dateTextSize) {
+	textSize(dateTextSize); //text size
+	fill(dateTextFill); //text color
+	noStroke(); //do not draw outline
+	textAlign(LEFT); //left align text
+	text(date, dateTextX, dateTextY); //draw date text
+}
+
+
+//function to draw text that reflects event of current
+function drawCurrentEventText(currentEventX, currentEventY, currentEventSize) {
+	var currentEvent = velocity[index]; //declare variable that traverses velocity array
+	//tests the velocity value to determine the current event
+	if (currentEvent > 0) {
+		currentEvent = "Flood"; //positive velocity currents flowing in are flood
+		currentEventTextFill = 'Green'; //flood text color
+	} else if (currentEvent == 0) {
+		currentEvent = "Slack"; //0 velocity between flood and ebb is slack
+		currentEventTextFill = 'Black'; //slack text color
+	} else {
+		currentEvent = "Ebb"; //negative velocity currents flowing out are ebb
+		currentEventTextFill = 'Red'; //ebb text color
+	}
+	textSize(currentEventTextSize); //text size
+	fill(currentEventTextFill); //fill color
+	noStroke(); //do not draw outline
+	textAlign(LEFT); //left align text
+	text(currentEvent, currentEventTextX, currentEventTextY); //draw current event text
+
+	//print for debugging
+	print(currentEvent);
+}
+
+
+//function to draw text that reflects current station
+function drawStationText(stationTextX, stationTextY, stationTextSize) {
+	textSize(stationTextSize); //text size
+	fill(stationTextFill); //text color
+	noStroke(); //do not draw outline
+	textAlign(CENTER); //center aligns text
+	push(); //save copy of coordinate system
+	translate(canvasX / 2, 0 + stationTextSize); //adjust x and y position for text
+	text(station, startX, startY); //draw station name and number text
+	pop(); //restore copy of coordinate system
+}

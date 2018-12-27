@@ -1,0 +1,200 @@
+// Lynn Pham
+// HCDE 598 - Final Project - Autumn 2018
+// This is an interactive game where the user can
+// click on as many Drake characters in a time frame
+// to earn a high score
+// Inspired by Falling Mickeys final project from 
+// HCDE 598 Fall Quarter 2017
+
+// setting up the background color and text color
+const bgColor = '#B8D8D8'; // pastel blue
+const textColor = 'white';
+const strokeColor = 'black';
+
+// setting up Drake's outfit colors
+const drakeHead = '#5C4033'; // Drake's head
+const drakeShirt = 'white'; // white shirt
+const jacketOne = '#8B0000'; // red jacket
+const drakePants = '#01579B'; // blue jeans
+
+// parameters for every Drake's figure
+const shapeWidth = 20;
+const shapeLength = 20;
+
+// setting up the timer variables 
+var begin;
+var duration = 30;
+var time = 30;
+
+// setting up the slider variables
+// code provided from the Falling Mickeys project
+var offset = 0.5;
+var barX = offset;
+var barY;
+var barW;
+var barH = 100;
+var sliderX = offset;
+var sliderY;
+var sliderW = 80;
+var sliderH = 100;
+
+// setting up Drake array and variables 
+var drake = [];
+var numDrake = 10;
+var ySpeed = 2;
+var countOfDrake = 0;
+
+var gameOver = false;
+
+function setup() {
+
+  // establishing the canvas
+  createCanvas(625, 450);
+
+  // this is for the timer
+  begin = millis();
+
+  for (i = 0; i < numDrake; i++) {
+    var newDrake = new DrakeFigures();
+    drake.push(newDrake);
+
+    // ends game in milliseconds  
+    setTimeout(over, 29900);
+
+  }
+}
+
+
+function draw() {
+
+  // drawing the background and title of the game
+  background(bgColor);
+  strokeWeight(3);
+  fill(textColor);
+  textAlign(CENTER);
+  textSize(25);
+
+  // displays the title of the game
+  text("Catch as many Drakes as you can!", width / 2, 40);
+
+  updateDisplayDrake(); // this runs the Drake figures falling down randomly
+
+  // displays the slider at the bottom
+  noStroke();
+  barY = height - 30;
+  barW = width - 2 * offset;
+  fill(255, 204, 0, 0);
+  rect(barX, barY, barW, barH);
+
+  // establishing the 30 second timer
+  if (time > 0) {
+    time = round(duration - (millis() - begin) / 1000);
+
+    fill(textColor);
+    textSize(45);
+    text(time, 575, 45);
+  }
+}
+
+// setting up the arrays to display the Drake characters
+function updateDisplayDrake() {
+  for (var i = 0; i < numDrake; i++) {
+    drake[i].draw();
+    drake[i].move();
+
+    var d = dist(drake[i].x, drake[i].y,
+      sliderX + sliderW / 2, sliderY);
+
+    // keeps count each time Drake hits the slider
+    // this is the score tracker
+    if (d > 0 & d < 5) {
+      countOfDrake = countOfDrake + 1;
+    }
+  }
+}
+
+function over() {
+  clear();
+  gameOver = true;
+
+}
+
+// this function allows for the Drake figures to
+// fall down the screen at random places on the canvas
+function DrakeFigures(drakeSize) {
+
+  drakeSize = 20;
+
+  // established random X and Y axis
+  this.x = random(0, width);
+  this.y = random(0, height);
+
+  this.draw = function() {
+
+    // draws 'game over' screen
+    if (gameOver == true) {
+      clear();
+      background(bgColor);
+      fill(textColor);
+      textSize(50);
+      textAlign(CENTER);
+      text("Good job! Let's play again!", width / 2, height / 2);
+      textSize(30);
+      textAlign(CENTER);
+      text("score: " + countOfDrake, width / 2, 280);
+    }
+
+    if (gameOver == false) {
+
+      if (this.y <= height + 4) {
+
+        // drawing Drake's head
+        noStroke();
+        fill(drakeHead); // Drake's head 
+        rect(this.x, this.y, shapeWidth, shapeLength);
+
+        // drawing Drake's odd red jacket
+        fill(jacketOne); // red jacket
+        rect(this.x, this.y + 20, shapeWidth, shapeLength + 10);
+
+        // drawing Drake's white shirt
+        fill(drakeShirt); // Drake's shirt
+        rect(this.x + 8, this.y + 20, shapeWidth - 16, shapeLength + 10);
+
+        // drawing Drake's pants
+        fill(drakePants); // blue pants
+        rect(this.x, this.y + 40, shapeWidth, shapeLength + 10);
+
+        // drawing the slider
+        noStroke();
+        sliderY = barY;
+        fill('white');
+        rect(sliderX, sliderY, sliderW, sliderH);
+
+        // drawing the "score" text
+        fill(textColor);
+        stroke(strokeColor);
+        textAlign(CENTER);
+        strokeWeight(2);
+
+        text("Score: " + countOfDrake, width / 2, height - 20);
+
+      } else {
+        this.y = -4;
+      }
+    }
+    this.move = function() {
+      this.y = this.y + ySpeed;
+    }
+  }
+}
+
+// this function the allows player to move slider with mouse
+// code provided from the Falling Mickeys project
+function mouseDragged() {
+  var sliderMax = width - offset - sliderW;
+  if (mouseY >= barY & mouseY <= barY + barH) {
+    sliderX = max(min(mouseX, sliderMax), barX);
+  }
+
+}

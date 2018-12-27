@@ -1,0 +1,565 @@
+///////////////////////////
+/////BUS TICKETS//////////
+//////////////////////////
+//File:finalproject.js
+//Author:Rachel Binnicker
+//Date:12/5/18
+//Class: HCDE 598
+//email: rbinnick@UW.edu
+//description:
+//This program allows the user to select a ticket to the lake or city. 
+//and be taken to scenes representative of those places. 
+
+
+//initialize variables for ticket cutouts, color, and background
+var place1 = 100;
+var place2 = 200;
+var place3 = 300;
+var place4 = 100;
+var place5 = 400;
+var place6 = 200;
+var place7 = 300;
+var place8 = 100;
+var CircleSize = 25;
+var ticketShade = ('yellow');
+var backgroundColor = (66, 134, 244);
+
+//initialize variables for buttons
+var cityButtonX = place5;
+var cityButtonY = place6;
+var lakeButtonX = place1;
+var lakeButtonY = place2;
+var sizeX = 200;
+var sizeY = 100;
+
+//decare variables for mouse clicked locations
+var xClicked;
+var yClicked;
+
+//initialize/declare variables for sun movement
+var xCoord1 = 35;
+var yCoord1 = 80;
+var xCoord2 = 120;
+var yCoord2 = 33;
+var distanceX;
+var distanceY;
+var exponent = 3;
+var x = 0.0;
+var y = 0.0;
+var step = 0.01;
+var pct = 0.00;
+
+//initialize variables to use for the boat
+var boatRec1 = 120;
+var boatRec2 = 300;
+var boatRec3 = 100;
+var boatRec4 = 20;
+var boatRec5 = 20;
+var boatRec6 = 0;
+var boatRec7 = 170;
+var boatRec8 = 210;
+var boatRec9 = 10;
+var boatRec10 = 110;
+var boatSail1 = 165;
+var boatSail2 = 295;
+var boatSail3 = 140;
+var boatSail4 = 225;
+var boatSail5 = 185;
+var boatSail6 = 215;
+var boatSail7 = 210;
+var boatSail8 = 295;
+var boatSail9 = 295;
+var boatSail10 = 295;
+var boatSail11 = 165;
+
+//declare array for rain
+var drops = [];
+
+//use the setup function to draw the canvas and add the text
+function setup() {
+  //set the canvas size
+  createCanvas(680, 500);
+  //make the background blue
+  background(66, 134, 244);
+  //draw the text on the canvas
+  textSize(20);
+  text('Where do you want to go? Choose a ticket!', 150, 100);
+}
+
+//use the draw function to draw the tickets and call the scene functions 
+//depeding on where the user clicks 
+function draw() {
+  //call the drawTicket function for the lake ticket
+  drawTicket(CircleSize, place1, place2, place3, place4, ticketShade, backgroundColor);
+  //write Lake on the ticket
+  textSize(20);
+  text('L A K E', (place1 + 65), (place2 + 55));
+  //call the drawTicket function for the city take
+  drawTicket(CircleSize, place5, place6, place7, place8, ticketShade, backgroundColor);
+  textSize(20);
+  //write city on the ticket
+  text('C I T Y', (place5 + 65), (place6 + 55));
+
+  //make the remaining cuts in the tickets 
+  ellipseMode(RADIUS);
+  fill(66, 134, 244);
+  noStroke();
+  ellipse((place5 + place6), place7, CircleSize);
+  ellipse((place5 + place6), place6, CircleSize);
+
+  //check if the lake ticket is clicked
+  var lakePressed = checkLakeButtonPressed();
+  if (lakePressed == true) { // lake button is pressed
+    //call the lake scene
+    takeToLake();
+  }
+  //check if the city ticket is clicked
+  var cityPressed = checkCityButtonPressed();
+  if (cityPressed == true) { // city button is pressed
+    //set the framerate for the rain to fall appropriately 
+    frameRate(35);
+    //draw the background
+    background(220);
+    //draw the buildings using the drawBuildings function
+    drawBuildings();
+    //Create 100 rain drops using a for loop. 
+    for (i = 0; i < 100; i++) {
+      rain1 = drops[i];
+      //call the show funciton on the object rain1 to draw the raindrops
+      rain1.show();
+      //call the move function on the object rain1 to move the raindrops down the canvas
+      rain1.move();
+    }
+  }
+}
+
+//checkLakeButtonPressed checks to see if the lake button was clicked 
+//Input:n/a
+//Output:true or false value
+function checkLakeButtonPressed() {
+  if (xClicked >= lakeButtonX &&
+    xClicked <= lakeButtonX + sizeX &&
+    yClicked >= lakeButtonY &&
+    yClicked <= lakeButtonY + sizeY) { // button is pressed
+    return true;
+  } else {
+    return false;
+  }
+}
+
+//checkCityButtonPressed checks to see if the city button was clicked 
+//Input:n/a
+//Output:true or false value
+function checkCityButtonPressed() {
+  if (xClicked >= cityButtonX &&
+    xClicked <= cityButtonX + sizeX &&
+    yClicked >= cityButtonY &&
+    yClicked <= cityButtonY + sizeY) { // button is pressed
+    return true;
+  } else {
+    return false;
+  }
+}
+
+//drawTicket fucntion draws the tickets on the canvas. 
+//input:sizeCircle, the size of the ellipse used for cuts; ticketSpot1,
+//ticketSpot2, ticketSpot3, and ticketSpot4, the locations, length
+//and width variables for the tickets and inner rectangle; ticketColor,
+//the color of the ticket
+//output:tickets on the canvas 
+function drawTicket(sizeCircle, ticketSpot1, ticketSpot2, ticketSpot3, ticketSpot4, ticketColor) {
+  fill(ticketColor);
+  noStroke();
+  rect(ticketSpot1, ticketSpot2, ticketSpot2, ticketSpot4);
+  ellipseMode(RADIUS);
+  fill(66, 134, 244);
+  ellipse(ticketSpot1, ticketSpot3, sizeCircle);
+  ellipse(ticketSpot1, ticketSpot2, sizeCircle);
+  ellipse(ticketSpot3, ticketSpot2, sizeCircle);
+  ellipse(ticketSpot3, ticketSpot3, sizeCircle);
+  noFill();
+  stroke('black');
+  strokeWeight(2);
+  rect((ticketSpot1 + 30), (ticketSpot2 + 20), (ticketSpot2 - 60), (ticketSpot4 - 40));
+}
+
+//the mouseClicked function is used to determine where the user clicks
+function mouseClicked() {
+  //xClicked and yClicked are variables for location of the mouse click
+  xClicked = mouseX;
+  yClicked = mouseY;
+  
+  //cityPressed is the output of checkCityButtonPressed
+  var cityPressed = checkCityButtonPressed();
+  
+  //if the city ticket is pressed, launch the city scene
+  if (cityPressed == true) { // city button is pressed
+    takeToCity();
+  }
+}
+
+//function takeToLake takes the user to the lake scene
+//input:n/a
+//output:the lake scene
+function takeToLake() {
+  //draw the canvas for the lake scene and set the background color
+  createCanvas(680, 500);
+  background(200, 300, 400);
+  //set the frame rate for the movement
+  frameRate(15);
+  
+  //track the distance of the sun movement 
+  distanceX = xCoord2 - xCoord1;
+  distanceY = yCoord2 - yCoord1;
+  
+  //continuously increase the pct value for use in sun movement equation
+  pct += step
+  //while pct is less than 1
+  if (pct < 1.0) {
+    //increment the x value 
+    x = xCoord1 + pct * distanceX;
+    //increment the y value
+    y = yCoord1 + pow(pct, exponent) * distanceY;
+  }
+  
+  //create the sun
+  fill(250, 248, 116);
+  noStroke();
+  ellipse(x, y, 30, 30);
+  //create a background rectangle that will become the lake
+  noStroke();
+  fill(39, 201, 209); //aqua color for water
+  rect(0, 200, 700, 600);
+  //make the mountians using triangles and a grey color using RGB format
+  fill(187, 199, 199);
+  triangle(450, 0, 200, 150, 600, 200);
+  triangle(400, 200, 17, 175, 250, 0);
+  //add some snowcaps using white trianges
+  fill('white');
+  triangle(250, 0, 150, 75, 350, 75);
+  //create the other mountians in a darker grey color using triangles again
+  fill('grey');
+  stroke(15); // include an outline on these to show depth
+  triangle(300, 0, 150, 200, 500, 200);
+  triangle(250, 200, 0, 225, 0, 0);
+  triangle(500, 200, 700, 200, 650, 0);
+  triangle(300, 200, 650, 200, 550, 0);
+  //create the rest of the snowcaps using the same method as before  
+  fill('white');
+  noStroke();
+  triangle(0, 0, 0, 55, 35, 28);
+  triangle(300, 0, 267, 45, 345, 45);
+  triangle(450, 0, 367, 50, 487, 50);
+  triangle(550, 0, 507, 35, 567, 35);
+  triangle(650, 0, 609, 55, 664, 55);
+
+  //create the dirt uring a curve and rectanges to fill in the area
+  fill(182, 152, 123);
+  noStroke();
+  bezier(0, 450, 265, 350, 380, 400, 900, 400);
+  fill(182, 152, 123);
+  noStroke();
+  rect(0, 449, 700, 125);
+  fill(182, 152, 123);
+  rect(125, 410, 555, 75);
+  fill(182, 152, 123);
+  rect(20, 442, 125, 25);
+  //create the trees using trianges and make them green 
+  fill(111, 160, 59);
+  triangle(25, 445, 55, 10, 125, 415);
+  triangle(475, 300, 500, 400, 435, 400);
+  triangle(510, 425, 600, 425, 550, 50);
+
+  //draw the boat
+  fill('brown');
+  rect(boatRec1, boatRec2, boatRec3, boatRec4, boatRec5, boatRec6, boatRec5, boatRec6);
+  rect(boatRec7, boatRec8, boatRec9, boatRec10);
+  stroke('tan');
+  fill('tan');
+  fill('tan');
+  triangle(boatSail1, boatSail2, boatSail3, boatSail9, boatSail11, boatSail4);
+  triangle(boatSail5, boatSail8, boatSail6, boatSail10, boatSail5, boatSail7);
+
+  //move the boat
+  boatRec1 += 1;
+  boatRec7 += 1;
+  boatSail1 += 1;
+  boatSail3 += 1;
+  boatSail5 += 1;
+  boatSail6 += 1;
+  boatSail11 += 1;
+
+  //stop the boat
+  if (boatRec1 >= 350) {
+    boatRec1 = 350;
+    boatRec7 = 400;
+    boatSail6 = 445;
+    boatSail5 = 415;
+    boatSail1 = 395;
+    boatSail3 = 370;
+    boatSail11 = 395;
+  }
+}
+
+//function takeToCity launches the city scene 
+//input:n/a
+//output: the city scene is drawn with falling rain
+function takeToCity() {
+  createCanvas(680, 500);
+  //create 100 rain drops and store them in an array
+  for (i = 0; i < 100; i++) {
+    //create an object, rain1, of the rain class 
+    rain1 = new Rain();
+    //store the objects in the drops array
+    drops[i] = rain1;
+  }
+}
+//I used a class to create the rain effect. 
+//I learned about this through research online. I watched videos and read tutorials. I also
+//read through some examples of classes on the p5.js website. 
+//One video that was very helpful can be found here: https://www.youtube.com/watch?v=T-HGdc8L-7w
+// A class is a blueprint for objects. My object is the rain drop.
+//I created 2 functions to first draw the rain and then move it. 
+
+//create a class for the rain.
+class Rain {
+  //the constructor function contains all the pieces needed for the rain. 
+  constructor() {
+    //create the drops at random locations on the canvas
+    this.xrain = random(0, 680);
+    this.yrain = random(-500, 500);
+    //set a speed for the rainfall 
+    this.speed = 10;
+  }
+  //create the function to move the raindrops on the canvas 
+  move() {
+    this.yrain = this.yrain + this.speed;
+    //when the rain is off the canvas, reset the y coordinates 
+    if (this.yrain > 500) {
+      this.yrain = random(-100, 0)
+    }
+  }
+  //create the function to draw the rain
+  show() {
+    stroke(96, 102, 99);
+    strokeWeight(2);
+    line(this.xrain, this.yrain, this.xrain, this.yrain + 7);
+  }
+}
+
+//function drawWindows1 draws the windows for the first building
+//input: location1, the x location of the window; location 2, the y location 
+//of the window
+//output: rectangles to serve as windows 
+function drawWindows1(location1, location2) {
+  noFill();
+  stroke('white');
+  strokeWeight(2);
+  rect(location1, location2, 10, 10);
+}
+
+//function drawWindows2 draws the windows for the second building
+//input: location1, the x location of the window; location 2, the y location 
+//of the window
+//output: rectangles to serve as windows 
+function drawWindows2(location1, location2) {
+  noFill();
+  stroke('white');
+  strokeWeight(1);
+  rect(location1, location2, 15, 20);
+}
+
+//function drawWindows3 draws the windows for the third building
+//input: location1, the x location of the window; location 2, the y location 
+//of the window
+//output: rectangles to serve as windows 
+function drawWindows3(location1, location2) {
+  fill('grey');
+  stroke('grey');
+  strokeWeight(1);
+  rect(location1, location2, 30, 15);
+}
+
+//function drawWindows4 draws the windows for the fourth building
+//input: location1, the x location of the window; location 2, the y location 
+//of the window
+//output: rectangles to serve as windows 
+function drawWindows4(location1, location2) {
+  stroke('white');
+  strokeWeight(5);
+  line(location1, location2, (location1), (location2 + 3));
+}
+
+//function drawWindows5 draws the windows for the fifth building
+//input: location1, the x location of the window; location 2, the y location 
+//of the window
+//output: rectangles to serve as windows 
+function drawWindows5(location1, location2) {
+  noFill();
+  stroke('black');
+  strokeWeight(7);
+  line(location1, location2, (location1 + 125), location2);
+}
+
+//function drawWindows6 draws the windows for the sixth building
+//input: location1, the x location of the window; location 2, the y location 
+//of the window
+//output: rectangles to serve as windows 
+function drawWindows6(location1, location2) {
+  noFill();
+  stroke('black');
+  strokeWeight(2);
+  rect(location1, location2, 5, 2);
+}
+
+//function drawWindows7 draws the windows for the seventh building
+//input: location1, the x location of the window; location 2, the y location 
+//of the window
+//output: rectangles to serve as windows 
+function drawWindows7(location1, location2) {
+  noFill();
+  stroke('white');
+  strokeWeight(7);
+  rect(location1, location2, 5, 10);
+}
+
+//building1 draws the first building and adds the windows
+//input: n/a
+//output: a rectangle to serve as a building and windows on it
+function building1() {
+  fill('black');
+  rect(0, 100, 100, 250);
+  //use a nested for loop to draw many windows 
+  for (i = 7; i <= 90; i += 15) {
+    for (j = 105; j < 335; j += 20) {
+      drawWindows1(i, j);
+    }
+  }
+  fill('white');
+  rect(67, 285, 25, 60);
+}
+
+//building2 draws the second building and adds the windows
+//input: n/a
+//output: a rectangle to serve as a building and windows on it
+function building2() {
+  fill('grey');
+  noStroke();
+  rect(100, 50, 100, 300);
+  //use a nested for loop to draw many windows 
+  for (i = 102; i <= 185; i += 20) {
+    for (j = 55; j <= 330; j += 20) {
+      drawWindows2(i, j);
+    }
+  }
+}
+
+//building3 draws the third building and adds the windows
+//input: n/a
+//output: a rectangle to serve as a building and windows on it
+function building3() {
+  fill(221, 167, 102);
+  noStroke();
+  rect(200, 75, 200, 275);
+  //use a nested for loop to draw many windows
+  for (i = 210; i <= 400; i += 70) {
+    for (j = 80; j <= 300; j += 30) {
+      drawWindows3(i, j);
+    }
+  }
+}
+
+//building4 draws the fourth building and adds the windows
+//input: n/a
+//output: a rectangle to serve as a building and windows on it
+function building4() {
+  fill('grey');
+  rect(400, 20, 50, 330);
+  //use a nested for loop to draw many windows
+  for (i = 405; i <= 450; i += 20) {
+    for (j = 30; j <= 300; j += 20) {
+      drawWindows4(i, j);
+    }
+  }
+}
+
+//building5 draws the fifth building and adds the windows
+//input: n/a
+//output: a rectangle to serve as a building and windows on it
+function building5() {
+  fill('white');
+  rect(450, 50, 150, 300);
+  //use a nested for loop to draw many windows
+  for (i = 460; i <= 500; i += 50) {
+    for (j = 70; j <= 345; j += 20) {
+      drawWindows5(i, j);
+    }
+  }
+}
+
+//building6 draws the sixth building and adds the windows
+//input: n/a
+//output: a rectangle to serve as a building and windows on it
+function building6() {
+  fill(12, 81, 91);
+  noStroke();
+  rect(600, 20, 100, 330);
+  //use a nested for loop to draw many windows
+  for (i = 620; i <= 670; i += 20) {
+    for (j = 40; j <= 350; j += 20) {
+      drawWindows6(i, j);
+    }
+  }
+}
+
+//building7 draws the seventh building and adds the windows
+//input: n/a
+//output: a rectangle to serve as a building and windows on it
+function building7() {
+  fill(12, 81, 91);
+  noStroke();
+  rect(125, 225, 325, 125);
+  fill('white');
+  rect(220, 325, 150, 25)
+  //use a nested for loop to draw many windows 
+  for (i = 135; i <= 440; i += 20) {
+    for (j = 235; j <= 300; j += 20) {
+      drawWindows7(i, j);
+    }
+  }
+}
+
+//funciton drawBuildings draws all of the seven buildings on the screen and 
+//the water and lines in the water.
+//input: n/a
+//output: 
+function drawBuildings() {
+  //create the water
+  fill(66, 134, 244);
+  noStroke();
+  rect(0, 350, 680, 200);
+  
+  //draw the lines in the water
+  strokeWeight(4);
+  stroke('white');
+  line(500, 400, 600, 400);
+  stroke(226, 218, 217);
+  line(200, 450, 280, 450);
+  stroke('white');
+  line(25, 390, 75, 390);
+  stroke(226, 218, 217);
+  line(600, 470, 650, 470);
+  stroke('white');
+  line(55, 470, 140, 470);
+  stroke(226, 218, 217);
+  line(240, 370, 370, 370);
+  
+  //create the buildings
+  building1();
+  building2();
+  building3();
+  building4();
+  building5();
+  building6();
+  building7();
+}
